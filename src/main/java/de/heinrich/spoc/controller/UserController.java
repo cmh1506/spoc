@@ -11,8 +11,6 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
-    // standard constructors
-
     private final UserRepository userRepository;
 
     @Autowired
@@ -25,7 +23,16 @@ public class UserController {
         return (List<User>) userRepository.findAll();
     }
 
-    @PostMapping("/users")
+    /*@PostMapping("/addUser")
+    void addUser(@RequestParam(required = false) String username,
+                 @RequestParam(required = false) String password,
+                 @RequestParam(required = false) String email) {
+        User user = new User(username, password, email);
+
+        userRepository.save(user);
+    }*/
+
+    @PostMapping("/addUser")
     void addUser(@RequestBody User user) {
         userRepository.save(user);
     }

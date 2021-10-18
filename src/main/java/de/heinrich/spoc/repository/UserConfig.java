@@ -18,11 +18,10 @@ public class UserConfig {
     }
 
     @Bean
-    CommandLineRunner init(UserRepository userRepository) {
+    CommandLineRunner initUsers(UserRepository userRepository) {
         return args -> {
             User user = new User("Burth", passwordEncoder.encode("123"), ApplicationUserRole.ADMIN, "dirk.burth@hm.edu",true, true, true, true);
             userRepository.save(user);
-            userRepository.findAll().forEach(System.out::println);
         };
     }
 }

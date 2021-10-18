@@ -47,6 +47,17 @@ public class User {
 
     }
 
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.role = ApplicationUserRole.ADMIN;
+        this.email = email;
+        this.isAccountNonExpired = true;
+        this.isAccountNonLocked = true;
+        this.isCredentialsNonExpired = true;
+        this.isEnabled = true;
+    }
+
     public ApplicationUserRole getRole() {
         return role;
     }
