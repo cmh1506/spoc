@@ -2,7 +2,7 @@ package de.heinrich.spoc.service;
 
 import de.heinrich.spoc.domain.Material;
 import de.heinrich.spoc.repository.MaterialRepository;
-import de.heinrich.spoc.service.exceptions.MaterialNotFoundException;
+import de.heinrich.spoc.service.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,7 @@ public class MaterialService {
     }
 
     public Material findMaterialById(Long id){
-        return repo.findMaterialById(id).orElseThrow(() -> new MaterialNotFoundException("Material with id " + id + " was not found!"));
+        return repo.findMaterialById(id).orElseThrow(() -> new EntityNotFoundException("Material with id " + id + " was not found!"));
     }
 
     public void deleteMaterial(Long id){

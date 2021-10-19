@@ -1,10 +1,9 @@
 package de.heinrich.spoc.domain;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "verarbeitung", schema = "spoc")
 public class Verarbeitung {
     @Id
     @SequenceGenerator(

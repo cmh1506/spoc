@@ -2,7 +2,9 @@ package de.heinrich.spoc.service;
 
 import de.heinrich.spoc.domain.Verarbeitung;
 import de.heinrich.spoc.repository.VerarbeitungRepository;
-import de.heinrich.spoc.service.exceptions.VerarbeitungNotFoundException;
+import de.heinrich.spoc.service.exceptions.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -16,7 +18,7 @@ public class VerarbeitungService {
     }
 
     public Verarbeitung addVerarbeitung(Verarbeitung verarbeitung){
-        return repo.save(Verarbeitung);
+        return repo.save(verarbeitung);
     }
 
     public List<Verarbeitung> findAllVerarbeitungs(){
@@ -28,7 +30,7 @@ public class VerarbeitungService {
     }
 
     public Verarbeitung findVerarbeitungById(Long id){
-        return repo.findVerarbeitungById(id).orElseThrow(() -> new VerarbeitungNotFoundException("Verarbeitung with id " + id + " was not found!"));
+        return repo.findVerarbeitungById(id).orElseThrow(() -> new EntityNotFoundException("Verarbeitung with id " + id + " was not found!"));
     }
 
     public void deleteVerarbeitung(Long id){
