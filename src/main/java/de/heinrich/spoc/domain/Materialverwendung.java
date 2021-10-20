@@ -2,6 +2,8 @@ package de.heinrich.spoc.domain;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name = "materialverwendung", schema = "spoc")
 public class Materialverwendung {
     @Id
     @SequenceGenerator(
