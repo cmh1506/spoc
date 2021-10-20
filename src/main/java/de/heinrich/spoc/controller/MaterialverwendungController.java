@@ -22,6 +22,7 @@ public class MaterialverwendungController {
     @GetMapping("/allMaterialverwendungs")
     public ResponseEntity<List<Materialverwendung>> getMaterialverwendungs(){
         List<Materialverwendung> materialverwendungs = service.findAllMaterialverwendungs();
+        //materialverwendungs.stream().map()
         return new ResponseEntity<>(materialverwendungs, HttpStatus.OK);
     }
 

@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "recycling_verfahren", schema = "spoc")
-public class RecyclingVerfahren implements Serializable {
+public class Recyclingverfahren implements Serializable {
     @Id
     @SequenceGenerator(
             name = "rercycling_verfahren_sequence",
@@ -27,11 +27,18 @@ public class RecyclingVerfahren implements Serializable {
         this.name = name;
     }
 
-    public RecyclingVerfahren() {
+    public Recyclingverfahren() {
     }
 
-    public RecyclingVerfahren(String name) {
+    public Recyclingverfahren(String name) {
         this.name = name;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

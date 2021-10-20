@@ -1,7 +1,6 @@
 package de.heinrich.spoc.repository;
 
-import de.heinrich.spoc.domain.Material;
-import de.heinrich.spoc.domain.RecyclingVerfahren;
+import de.heinrich.spoc.domain.Recyclingverfahren;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +10,7 @@ public class RecyclingVerfahrenConfig {
     @Bean
     CommandLineRunner initRecyclingVerfahren(RecyclingVerfahrenRepository repository){
         return args -> {
-            RecyclingVerfahren recyclingVerfahren = new RecyclingVerfahren("Einschmelzen");
+            Recyclingverfahren recyclingVerfahren = new Recyclingverfahren("Einschmelzen");
             repository.save(recyclingVerfahren);
         };
     }

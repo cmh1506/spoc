@@ -22,9 +22,11 @@ public class Materialverwendung {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "verarbeitung_id", referencedColumnName = "id")
     private Verarbeitung verarbeitung;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "recyclingverfahren_id", referencedColumnName = "id")
+    private Recyclingverfahren recyclingVerfahren;
 
-    public Materialverwendung() {
-    }
+    public Materialverwendung() {}
 
     public Material getMaterial() {
         return material;
@@ -40,5 +42,21 @@ public class Materialverwendung {
 
     public void setVerarbeitung(Verarbeitung verarbeitung) {
         this.verarbeitung = verarbeitung;
+    }
+
+    public Recyclingverfahren getRecyclingVerfahren() {
+        return recyclingVerfahren;
+    }
+
+    public void setRecyclingVerfahren(Recyclingverfahren recyclingVerfahren) {
+        this.recyclingVerfahren = recyclingVerfahren;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
