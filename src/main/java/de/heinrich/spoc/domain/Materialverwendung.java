@@ -16,6 +16,8 @@ public class Materialverwendung {
             generator = "material_verwendung_sequence"
     )
     private Long id;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Verpackung verpackung;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "material_id", referencedColumnName = "id")
     private Material material;

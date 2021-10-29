@@ -11,7 +11,9 @@ public class MaterialConfig {
     CommandLineRunner initMaterials(MaterialRepository materialRepository) {
         return args -> {
             Material material = new Material("PVC");
-            materialRepository.save(material);
+            materialRepository.save(new Material("Aluminium"));
+            materialRepository.save(new Material("Plastik"));
+            materialRepository.save(new Material("Pappe"));
         };
     }
 }

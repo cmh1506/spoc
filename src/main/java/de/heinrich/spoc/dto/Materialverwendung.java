@@ -1,7 +1,5 @@
 package de.heinrich.spoc.dto;
 
-import de.heinrich.spoc.domain.Verarbeitung;
-
 public class Materialverwendung {
     private Long id;
     private String material;

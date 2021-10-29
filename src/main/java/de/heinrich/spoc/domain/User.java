@@ -5,6 +5,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.List;
+
 import static javax.persistence.EnumType.STRING;
 
 @Entity
@@ -26,6 +28,18 @@ public class User {
     @Enumerated(STRING)
     private  ApplicationUserRole role;
     private String email;
+
+    public List<Verpackung> getVerpackung() {
+        return verpackung;
+    }
+
+    public void setVerpackung(List<Verpackung> verpackung) {
+        this.verpackung = verpackung;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "user", orphanRemoval = true)
+    private List<Verpackung> verpackung;
     private  boolean isAccountNonExpired;
     private  boolean isAccountNonLocked;
     private  boolean isCredentialsNonExpired;

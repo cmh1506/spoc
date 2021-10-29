@@ -1,6 +1,5 @@
 package de.heinrich.spoc.service;
 
-import de.heinrich.spoc.domain.Material;
 import de.heinrich.spoc.domain.Materialverwendung;
 import de.heinrich.spoc.repository.MaterialverwendungRepository;
 import de.heinrich.spoc.service.exceptions.EntityNotFoundException;
