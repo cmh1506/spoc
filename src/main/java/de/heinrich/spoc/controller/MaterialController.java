@@ -20,8 +20,8 @@ public class MaterialController {
     }
 
     @GetMapping("/allMaterials")
-    public ResponseEntity<List<Material>> getMaterials(){
-        List<Material> materials = service.findAllMaterials();
+    public ResponseEntity<List<de.heinrich.spoc.dto.Material>> getMaterials(){
+        List<de.heinrich.spoc.dto.Material> materials = service.findAllMaterials();
         return new ResponseEntity<>(materials, HttpStatus.OK);
     }
 

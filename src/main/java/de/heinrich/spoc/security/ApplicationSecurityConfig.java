@@ -4,6 +4,7 @@ import de.heinrich.spoc.auth.ApplicationUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -28,28 +29,18 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable();
-        http.authorizeRequests().antMatchers("/").permitAll();
-        /*http
+        http
                 .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
-                *//*.antMatchers("/api/**").hasRole(ADMIN.name())
-                .antMatchers(HttpMethod.DELETE, "/management/api/**").hasAuthority(COURSE_WRITE.getPermission())
-                .antMatchers(HttpMethod.POST, "/management/api/**").hasAuthority(COURSE_WRITE.getPermission())
-                .antMatchers(HttpMethod.PUT, "/management/api/**").hasAuthority(COURSE_WRITE.getPermission())
-                .antMatchers("/management/api/**").hasAnyRole(ADMIN.name(), ADMINTRAINEE.name())*//*
-                .anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
-                .defaultSuccessUrl("/courses", true)
-                .and().rememberMe()
+                .cors()
                 .and()
-                .logout()
-                .logoutUrl("/logout")
-                .clearAuthentication(true)
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID", "remember-me")
-                .logoutSuccessUrl("/login");
-                //.loginPage("/login").permitAll()*/
+                .authorizeRequests()
+                .antMatchers("/", "index", "/spoclogin", "/materialverwendung/allMaterialverwendungs", "/material/allMaterials", "/verarbeitung/allVerarbeitungs", "/recyclingverfahren/allRecyclingverfahrens", "/energierueckgewinnung/allEnergierueckgewinnungs", "/transportmittel/allTransportmittels").permitAll()
+                .antMatchers(HttpMethod.GET, "/verpackung/**", "/materialverwendung/**", "/spoclogin").hasAuthority(ApplicationUserPermission.STAMMDATEN.getPermission())
+                .antMatchers(HttpMethod.POST, "/verpackung/**", "/materialverwendung/**").hasAuthority(ApplicationUserPermission.STAMMDATEN.getPermission())
+                .anyRequest()
+                .authenticated()
+                .and()
+                .httpBasic();
     }
 
     @Override

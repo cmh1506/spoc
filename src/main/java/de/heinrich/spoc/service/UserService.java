@@ -15,8 +15,25 @@ public class UserService {
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
     }
+
+    public User findUserById(Long id) {
+        return userRepository.findUserById(id);
+    }
+
     public Optional<User> findUserByName(String name){
         return userRepository.findUserByUsername(name);
     }
     public List<User> getUsers() {return (List<User>) userRepository.findAll();}
+
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public User findUserByEmail(String userEmail) {
+        return userRepository.findUserByEmail(userEmail);
+    }
 }

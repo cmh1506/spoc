@@ -109,4 +109,8 @@ public class User {
     public boolean isEnabled() {
         return isEnabled;
     }
+
+    public Long getId() {
+        return this.id;
+    }
 }

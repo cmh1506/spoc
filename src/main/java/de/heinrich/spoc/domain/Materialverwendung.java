@@ -1,6 +1,7 @@
 package de.heinrich.spoc.domain;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "materialverwendung", schema = "spoc")
@@ -16,6 +17,15 @@ public class Materialverwendung {
             generator = "material_verwendung_sequence"
     )
     private Long id;
+
+    public Verpackung getVerpackung() {
+        return verpackung;
+    }
+
+    public void setVerpackung(Verpackung verpackung) {
+        this.verpackung = verpackung;
+    }
+
     @ManyToOne(cascade = CascadeType.ALL)
     private Verpackung verpackung;
     @OneToOne(cascade = CascadeType.ALL)
@@ -27,6 +37,78 @@ public class Materialverwendung {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "recyclingverfahren_id", referencedColumnName = "id")
     private Recyclingverfahren recyclingVerfahren;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "energierueckgewinnung_id", referencedColumnName = "id")
+    private Energierueckgewinnung energierueckgewinnung;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "transportmittel_id", referencedColumnName = "id")
+    private Transportmittel transportmittel;
+    private BigDecimal recyclingQuote;
+
+    public BigDecimal getRecyclingQuote() {
+        return recyclingQuote;
+    }
+
+    public void setRecyclingQuote(BigDecimal recyclingQuote) {
+        this.recyclingQuote = recyclingQuote;
+    }
+
+    private BigDecimal menge;
+    private BigDecimal flaeche;
+    private BigDecimal dicke;
+    private BigDecimal transportStrecke;
+
+    public BigDecimal getTransportStrecke() {
+
+        return transportStrecke;
+    }
+
+    public void setTransportStrecke(BigDecimal transportStrecke) {
+        this.transportStrecke = transportStrecke;
+    }
+
+    public Transportmittel getTransportmittel() {
+        return transportmittel;
+    }
+
+    public void setTransportmittel(Transportmittel transportmittel) {
+        this.transportmittel = transportmittel;
+    }
+
+    public BigDecimal getMenge() {
+        return menge;
+    }
+
+    public void setMenge(BigDecimal menge) {
+        this.menge = menge;
+    }
+
+    public BigDecimal getFlaeche() {
+        return flaeche;
+    }
+
+    public void setFlaeche(BigDecimal flaeche) {
+        this.flaeche = flaeche;
+    }
+
+    public BigDecimal getDicke() {
+        return dicke;
+    }
+
+    public void setDicke(BigDecimal dicke) {
+        this.dicke = dicke;
+    }
+
+
+    
+
+    public Energierueckgewinnung getEnergierueckgewinnung() {
+        return energierueckgewinnung;
+    }
+
+    public void setEnergierueckgewinnung(Energierueckgewinnung energierueckgewinnung) {
+        this.energierueckgewinnung = energierueckgewinnung;
+    }
 
     public Materialverwendung() {}
 

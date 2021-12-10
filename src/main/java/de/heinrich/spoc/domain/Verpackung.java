@@ -25,6 +25,15 @@ public class Verpackung {
     @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "verpackung", orphanRemoval = true)
     private List<Materialverwendung> materialverwendungs;
+    private String beschreibung;
+
+    public String getBeschreibung() {
+        return beschreibung;
+    }
+
+    public void setBeschreibung(String beschreibung) {
+        this.beschreibung = beschreibung;
+    }
 
     private String name;
     public Long getId() {

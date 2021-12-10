@@ -21,8 +21,8 @@ public class VerarbeitungService {
         return repo.save(verarbeitung);
     }
 
-    public List<Verarbeitung> findAllVerarbeitungs(){
-        return repo.findAll();
+    public List<de.heinrich.spoc.dto.Verarbeitung> findAllVerarbeitungs(){
+        return repo.findAllVerarbeitungs();
     }
 
     public Verarbeitung updateVerarbeitung(Verarbeitung verarbeitung){

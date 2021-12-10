@@ -1,6 +1,7 @@
 package de.heinrich.spoc.domain;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "verarbeitung", schema = "spoc")
@@ -17,6 +18,16 @@ public class Verarbeitung {
     )
     private Long id;
     private String name;
+    private BigDecimal energie;
+
+    public BigDecimal getEnergie() {
+        return energie;
+    }
+
+    public void setEnergie(BigDecimal energie) {
+        this.energie = energie;
+    }
+
     public String getName() {
         return name;
     }

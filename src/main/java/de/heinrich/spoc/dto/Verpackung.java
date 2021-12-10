@@ -7,7 +7,18 @@ public class Verpackung {
     private String name;
     private Long userId;
     private String user;
-    private List<de.heinrich.spoc.dto.Materialverwendung> materialverwendungList;
+    private String beschreibung;
+
+    public Verpackung() {
+    }
+
+    public String getBeschreibung() {
+        return beschreibung;
+    }
+
+    public void setBeschreibung(String beschreibung) {
+        this.beschreibung = beschreibung;
+    }
 
     public Long getId() {
         return id;
@@ -41,11 +52,14 @@ public class Verpackung {
         this.user = user;
     }
 
-    public List<de.heinrich.spoc.dto.Materialverwendung> getMaterialverwendungList() {
-        return materialverwendungList;
+    public Verpackung(de.heinrich.spoc.domain.Verpackung entity){
+        this.id = entity.getId();
+        this.name = entity.getName();
+        this.userId = entity.getUser().getId();
+        this.user = entity.getUser().getUsername();
+        this.beschreibung = entity.getBeschreibung();
+
     }
 
-    public void setMaterialverwendungList(List<de.heinrich.spoc.dto.Materialverwendung> materialverwendungList) {
-        this.materialverwendungList = materialverwendungList;
-    }
+
 }

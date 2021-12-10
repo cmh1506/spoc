@@ -6,6 +6,7 @@ import de.heinrich.spoc.service.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,8 +22,9 @@ public class MaterialService {
         return repo.save(material);
     }
 
-    public List<Material> findAllMaterials(){
-        return repo.findAll();
+    public List<de.heinrich.spoc.dto.Material> findAllMaterials(){
+        List<de.heinrich.spoc.dto.Material> toReturn = repo.findAllMaterials();
+        return toReturn;
     }
 
     public Material updateMaterial(Material material){

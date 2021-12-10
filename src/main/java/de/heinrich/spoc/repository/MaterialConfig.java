@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MaterialConfig {
-    @Bean
+    /*@Bean
     CommandLineRunner initMaterials(MaterialRepository materialRepository) {
         return args -> {
             Material material = new Material("PVC");
@@ -15,5 +15,5 @@ public class MaterialConfig {
             materialRepository.save(new Material("Plastik"));
             materialRepository.save(new Material("Pappe"));
         };
-    }
+    }*/
 }

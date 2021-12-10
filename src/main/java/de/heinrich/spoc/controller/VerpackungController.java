@@ -1,28 +1,33 @@
 package de.heinrich.spoc.controller;
 
 import de.heinrich.spoc.domain.Verpackung;
+import de.heinrich.spoc.service.UserService;
 import de.heinrich.spoc.service.VerpackungService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/verpackung")
-@CrossOrigin(origins = "http://localhost:4200")
-public class VerpackungController {private final VerpackungService service;
-
+@CrossOrigin(origins = "http://localhost:4200/")
+public class VerpackungController {
+    private final VerpackungService service;
+    private final UserService userService;
     @Autowired
-    public VerpackungController(VerpackungService service) {
+    public VerpackungController(VerpackungService service, UserService userService) {
         this.service = service;
+        this.userService = userService;
     }
 
     @GetMapping("/allVerpackungs")
     public ResponseEntity<List<Verpackung>> getVerpackungs(){
         List<Verpackung> verpackungs = service.findAllVerpackungs();
-        //verpackungs.stream().map()
         return new ResponseEntity<>(verpackungs, HttpStatus.OK);
     }
 
@@ -33,9 +38,10 @@ public class VerpackungController {private final VerpackungService service;
     }
 
     @PostMapping("/addVerpackung")
-    public ResponseEntity<Verpackung> addVerpackung(@RequestBody Verpackung verpackung){
+    public ResponseEntity<de.heinrich.spoc.dto.Verpackung> addVerpackung(@RequestBody de.heinrich.spoc.dto.Verpackung verpackung){
         Verpackung newVerpackung = service.addVerpackung(verpackung);
-        return new ResponseEntity<>(newVerpackung, HttpStatus.CREATED);
+        de.heinrich.spoc.dto.Verpackung toReturn = service.transformDomain(newVerpackung);
+        return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
     }
 
     @PostMapping("/updateVerpackung")
@@ -49,4 +55,14 @@ public class VerpackungController {private final VerpackungService service;
         service.deleteVerpackung(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/findAllForUserId/{id}")
+    public ResponseEntity<List<de.heinrich.spoc.dto.Verpackung>> findAllForUserId(@PathVariable("id") Long id){
+        List<Verpackung> fromDB = service.findAllForUser(userService.findUserById(id));
+        List<de.heinrich.spoc.dto.Verpackung> toReturn = new ArrayList<>();
+        fromDB.stream().forEach(verpackung -> {toReturn.add(service.transformDomain(verpackung));});
+        return new ResponseEntity<>(toReturn, HttpStatus.OK);
+    }
+
+
 }

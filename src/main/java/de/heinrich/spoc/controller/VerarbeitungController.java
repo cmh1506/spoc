@@ -19,8 +19,8 @@ public class VerarbeitungController {
         this.service = service;
     }
     @GetMapping("/allVerarbeitungs")
-    public ResponseEntity<List<Verarbeitung>> getVerarbeitungs(){
-        List<Verarbeitung> verarbeitungs = service.findAllVerarbeitungs();
+    public ResponseEntity<List<de.heinrich.spoc.dto.Verarbeitung>> getVerarbeitungs(){
+        List<de.heinrich.spoc.dto.Verarbeitung> verarbeitungs = service.findAllVerarbeitungs();
         return new ResponseEntity<>(verarbeitungs, HttpStatus.OK);
     }
     @GetMapping("/find/{id}")
