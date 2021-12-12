@@ -1,14 +1,25 @@
 package de.heinrich.spoc.util;
 
 import de.heinrich.spoc.domain.Materialverwendung;
+import de.heinrich.spoc.domain.NutzenergieCO2Equivalent;
 import de.heinrich.spoc.domain.Recyclingverfahren;
+import de.heinrich.spoc.service.NutzenergieCO2EquivalentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class Spoc {
+
+    private final NutzenergieCO2EquivalentService nutzenergieCO2EquivalentService;
+    @Autowired
+    public Spoc(NutzenergieCO2EquivalentService nutzenergieCO2EquivalentService) {
+        this.nutzenergieCO2EquivalentService = nutzenergieCO2EquivalentService;
+    }
 
     public BigDecimal berechneFossileMasse(Materialverwendung materialDomain, SpocUtil spuk) {
         materialDomain.getMaterial().getProductionCO2();
@@ -17,7 +28,7 @@ public class Spoc {
 
     public BigDecimal berechneMaterialCO2Eq(Materialverwendung materialverwendungDomain, SpocUtil spuk) {
         double co2ProdP = materialverwendungDomain.getMenge().doubleValue() * spuk.getVirginanteil() * materialverwendungDomain.getMaterial().getProductionCO2().doubleValue();
-        double co2RecyP = materialverwendungDomain.getMenge().doubleValue() * spuk.getVermehrung() * materialverwendungDomain.getMaterial().getCo2Recycling().doubleValue();
+        double co2RecyP = (materialverwendungDomain.getMenge().doubleValue() * spuk.getVermehrung() * materialverwendungDomain.getMaterial().getCo2Recycling().doubleValue()) / (1 + spuk.getVermehrung()) ;
         double toReturn = co2RecyP + co2ProdP;
         return BigDecimal.valueOf(toReturn).setScale(2, RoundingMode.CEILING);
     }
@@ -26,9 +37,14 @@ public class Spoc {
         return BigDecimal.valueOf(Math.random() * 1000).setScale(2, RoundingMode.CEILING);
     }
 
-    public BigDecimal berechneEnergieAufwandVerarbeitung(Materialverwendung materialDomain) {
-
-        return BigDecimal.valueOf(Math.random() * 1000).setScale(2, RoundingMode.CEILING);
+    public BigDecimal berechneEnergieAufwandVerarbeitung(Materialverwendung materialverwendungDomain) {
+        List<NutzenergieCO2Equivalent> ewerte = nutzenergieCO2EquivalentService.findALL();
+        double fakCO2Strom = ewerte.stream().filter(x -> x.getEnergietraeger().equals("CO2 Stromnetz")).findFirst().get().getCo2ProKJ().doubleValue();
+        double fakCO2Waerme = ewerte.stream().filter(x -> x.getEnergietraeger().equals("CO2 Gaswärme")).findFirst().get().getCo2ProKJ().doubleValue();
+        double toReturn = materialverwendungDomain.getMenge().doubleValue() *
+                (materialverwendungDomain.getVerarbeitung().getStrom().doubleValue() * fakCO2Strom +
+                materialverwendungDomain.getVerarbeitung().getWaerme().doubleValue() * fakCO2Waerme);
+        return BigDecimal.valueOf(toReturn);
     }
 
     public BigDecimal berechneVerbrennungENutzCo2Eq(Materialverwendung materialDomain) {
