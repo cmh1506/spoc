@@ -18,8 +18,8 @@ public class NutzenergieCO2Equivalent {
     )
     private Long id;
     private String energietraeger;
-    private BigDecimal co2ProKWh;
-    private BigDecimal co2ProKJ;
+    private double co2ProKWh;
+    private double co2ProKJ;
 
     public Long getId() {
         return id;
@@ -37,19 +37,19 @@ public class NutzenergieCO2Equivalent {
         this.energietraeger = energieträger;
     }
 
-    public BigDecimal getCo2ProKWh() {
+    public double getCo2ProKWh() {
         return co2ProKWh;
     }
 
-    public void setCo2ProKWh(BigDecimal co2ProKWh) {
+    public void setCo2ProKWh(double co2ProKWh) {
         this.co2ProKWh = co2ProKWh;
     }
 
-    public BigDecimal getCo2ProKJ() {
+    public double getCo2ProKJ() {
         return co2ProKJ;
     }
 
-    public void setCo2ProKJ(BigDecimal co2ProKJ) {
+    public void setCo2ProKJ(double co2ProKJ) {
         this.co2ProKJ = co2ProKJ;
     }
 }

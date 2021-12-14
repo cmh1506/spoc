@@ -1,7 +1,6 @@
 package de.heinrich.spoc.domain;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "materialverwendung", schema = "spoc")
@@ -43,27 +42,27 @@ public class Materialverwendung {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "transportmittel_id", referencedColumnName = "id")
     private Transportmittel transportmittel;
-    private BigDecimal recyclingQuote;
+    private double recyclingQuote;
 
-    public BigDecimal getRecyclingQuote() {
+    public double getRecyclingQuote() {
         return recyclingQuote;
     }
 
-    public void setRecyclingQuote(BigDecimal recyclingQuote) {
+    public void setRecyclingQuote(double recyclingQuote) {
         this.recyclingQuote = recyclingQuote;
     }
 
-    private BigDecimal menge;
-    private BigDecimal flaeche;
-    private BigDecimal dicke;
-    private BigDecimal transportStrecke;
+    private double menge;
+    private double flaeche;
+    private double dicke;
+    private double transportStrecke;
 
-    public BigDecimal getTransportStrecke() {
+    public double getTransportStrecke() {
 
         return transportStrecke;
     }
 
-    public void setTransportStrecke(BigDecimal transportStrecke) {
+    public void setTransportStrecke(double transportStrecke) {
         this.transportStrecke = transportStrecke;
     }
 
@@ -75,27 +74,27 @@ public class Materialverwendung {
         this.transportmittel = transportmittel;
     }
 
-    public BigDecimal getMenge() {
+    public double getMenge() {
         return menge;
     }
 
-    public void setMenge(BigDecimal menge) {
+    public void setMenge(double menge) {
         this.menge = menge;
     }
 
-    public BigDecimal getFlaeche() {
+    public double getFlaeche() {
         return flaeche;
     }
 
-    public void setFlaeche(BigDecimal flaeche) {
+    public void setFlaeche(double flaeche) {
         this.flaeche = flaeche;
     }
 
-    public BigDecimal getDicke() {
+    public double getDicke() {
         return dicke;
     }
 
-    public void setDicke(BigDecimal dicke) {
+    public void setDicke(double dicke) {
         this.dicke = dicke;
     }
 

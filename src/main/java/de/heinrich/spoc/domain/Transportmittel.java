@@ -1,7 +1,6 @@
 package de.heinrich.spoc.domain;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "transportmittel", schema = "spoc")
@@ -18,8 +17,8 @@ public class Transportmittel {
     )
     private Long id;
     private String name;
-    private BigDecimal co2;
-    private BigDecimal energie;
+    private double co2;
+    private double energie;
 
     public Long getId() {
         return id;
@@ -37,19 +36,19 @@ public class Transportmittel {
         this.name = name;
     }
 
-    public BigDecimal getCo2() {
+    public double getCo2() {
         return co2;
     }
 
-    public void setCo2(BigDecimal co2) {
+    public void setCo2(double co2) {
         this.co2 = co2;
     }
 
-    public BigDecimal getEnergie() {
+    public double getEnergie() {
         return energie;
     }
 
-    public void setEnergie(BigDecimal energie) {
+    public void setEnergie(double energie) {
         this.energie = energie;
     }
 

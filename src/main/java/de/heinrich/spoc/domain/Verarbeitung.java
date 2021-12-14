@@ -18,22 +18,22 @@ public class Verarbeitung {
     )
     private Long id;
     private String name;
-    private BigDecimal strom;
-    private BigDecimal waerme;
+    private double strom;
+    private double waerme;
 
-    public BigDecimal getWaerme() {
+    public double getWaerme() {
         return waerme;
     }
 
-    public void setWaerme(BigDecimal waerme) {
+    public void setWaerme(double waerme) {
         this.waerme = waerme;
     }
 
-    public BigDecimal getStrom() {
+    public double getStrom() {
         return strom;
     }
 
-    public void setStrom(BigDecimal energie) {
+    public void setStrom(double energie) {
         this.strom = energie;
     }
 

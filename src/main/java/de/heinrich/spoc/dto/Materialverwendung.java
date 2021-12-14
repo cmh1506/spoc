@@ -17,11 +17,11 @@ public class Materialverwendung {
     private String energierueckgewinnung;
     private Long transportmittelId;
     private String transportmittel;
-    private BigDecimal recyclingQuote;
-    private BigDecimal menge;
-    private BigDecimal flaeche;
-    private BigDecimal dicke;
-    private BigDecimal transportstrecke;
+    private double recyclingQuote;
+    private double menge;
+    private double flaeche;
+    private double dicke;
+    private double transportstrecke;
     private BigDecimal fossileMasse;
     private BigDecimal materialCO2Eq;
     private BigDecimal materialEnergie;
@@ -33,11 +33,11 @@ public class Materialverwendung {
     private BigDecimal transportCo2Eq;
     private BigDecimal transportEnergie;
 
-    public BigDecimal getRecyclingQuote() {
+    public double getRecyclingQuote() {
         return recyclingQuote;
     }
 
-    public void setRecyclingQuote(BigDecimal recyclingQuote) {
+    public void setRecyclingQuote(double recyclingQuote) {
         this.recyclingQuote = recyclingQuote;
     }
 
@@ -121,35 +121,35 @@ public class Materialverwendung {
         this.transportEnergie = transportEnergie;
     }
 
-    public BigDecimal getMenge() {
+    public double getMenge() {
         return menge;
     }
 
-    public void setMenge(BigDecimal menge) {
+    public void setMenge(double menge) {
         this.menge = menge;
     }
 
-    public BigDecimal getFlaeche() {
+    public double getFlaeche() {
         return flaeche;
     }
 
-    public void setFlaeche(BigDecimal flaeche) {
+    public void setFlaeche(double flaeche) {
         this.flaeche = flaeche;
     }
 
-    public BigDecimal getDicke() {
+    public double getDicke() {
         return dicke;
     }
 
-    public void setDicke(BigDecimal dicke) {
+    public void setDicke(double dicke) {
         this.dicke = dicke;
     }
 
-    public BigDecimal getTransportstrecke() {
+    public double getTransportstrecke() {
         return transportstrecke;
     }
 
-    public void setTransportstrecke(BigDecimal transportstrecke) {
+    public void setTransportstrecke(double transportstrecke) {
         this.transportstrecke = transportstrecke;
     }
 

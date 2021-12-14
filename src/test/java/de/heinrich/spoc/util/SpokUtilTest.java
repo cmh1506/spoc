@@ -11,12 +11,12 @@ public class SpokUtilTest {
 
     @Test
     void testBerechneVirginAnteilClosedLoop() {
-        SpocUtil spuk = new SpocUtil(new Recyclingverfahren("Closed Loop"), new BigDecimal(90));
+        SpocUtil spuk = new SpocUtil(new Recyclingverfahren("Closed Loop"), 90);
         assertEquals(spuk.getVirginanteil(),  1/ (1 +(1 / (1 - 0.9)) - 1));
     }
     @Test
     void testBerechneVirginAnteilOpenLoop(){
-        SpocUtil spuk = new SpocUtil(new Recyclingverfahren("Open Loop"), new BigDecimal(50));
+        SpocUtil spuk = new SpocUtil(new Recyclingverfahren("Open Loop"), 50);
         assertEquals(spuk.getVirginanteil(), (1 / 1.5));
     }
 

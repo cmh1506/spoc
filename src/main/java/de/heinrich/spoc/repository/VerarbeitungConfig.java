@@ -7,11 +7,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class VerarbeitungConfig {
-    @Bean
+    /*@Bean
     CommandLineRunner initVerarbeitungs(VerarbeitungRepository verarbeitungRepository) {
         return args -> {
             Verarbeitung verarbeitung = new Verarbeitung("Walzen");
             verarbeitungRepository.save(verarbeitung);
         };
-    }
+    }*/
 }

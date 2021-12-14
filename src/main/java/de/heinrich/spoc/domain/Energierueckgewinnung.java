@@ -17,9 +17,9 @@ public class Energierueckgewinnung {
     )
     private Long id;
     private String name;
-    private BigDecimal recoveryRate;
-    private BigDecimal stromanteil;
-    private BigDecimal thermischerAnteil;
+    private double recoveryRate;
+    private double stromanteil;
+    private double thermischerAnteil;
 
     public Long getId() {
         return id;
@@ -37,27 +37,27 @@ public class Energierueckgewinnung {
         this.name = a_name;
     }
 
-    public BigDecimal getRecoveryRate() {
+    public double getRecoveryRate() {
         return recoveryRate;
     }
 
-    public void setRecoveryRate(BigDecimal recoveryRate) {
+    public void setRecoveryRate(double recoveryRate) {
         this.recoveryRate = recoveryRate;
     }
 
-    public BigDecimal getStromanteil() {
+    public double getStromanteil() {
         return stromanteil;
     }
 
-    public void setStromanteil(BigDecimal stromanteil) {
+    public void setStromanteil(double stromanteil) {
         this.stromanteil = stromanteil;
     }
 
-    public BigDecimal getThermischerAnteil() {
+    public double getThermischerAnteil() {
         return thermischerAnteil;
     }
 
-    public void setThermischerAnteil(BigDecimal thermischerAnteil) {
+    public void setThermischerAnteil(double thermischerAnteil) {
         this.thermischerAnteil = thermischerAnteil;
     }
 
