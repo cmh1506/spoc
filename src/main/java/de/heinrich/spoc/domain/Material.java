@@ -29,6 +29,15 @@ public class Material implements Serializable {
     private double bioCO2Verbrennung;
     private double heizenergie;
     private double co2Recycling;
+    private double energieRecycling;
+
+    public double getEnergieRecycling() {
+        return energieRecycling;
+    }
+
+    public void setEnergieRecycling(double energieRecycling) {
+        this.energieRecycling = energieRecycling;
+    }
 
     public double getCo2Recycling() {
         return co2Recycling;

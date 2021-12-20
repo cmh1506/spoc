@@ -34,10 +34,10 @@ public class Spoc {
 
     public BigDecimal berechneMaterialEnergie(Materialverwendung materialverwendungDomain, SpocUtil spuk) {
         double co2ProdP = materialverwendungDomain.getMenge() * spuk.getVirginanteil() * materialverwendungDomain.getMaterial().getProzessenergie();
-        double co2RecyP = (materialverwendungDomain.getMenge() * spuk.getVermehrung() * materialverwendungDomain.getMaterial().getCo2Recycling()) / (1 + spuk.getVermehrung()) ;//hier falscher Wert drin getCo2Recycling(). Durch getEnergieRecycling ersetzen.
+        double co2RecyP = (materialverwendungDomain.getMenge() * spuk.getVermehrung() * materialverwendungDomain.getMaterial().getEnergieRecycling()) / (1 + spuk.getVermehrung()) ;//hier falscher Wert drin getCo2Recycling(). Durch getEnergieRecycling ersetzen.
         double toReturn = co2RecyP + co2ProdP;
 
-        return BigDecimal.valueOf(Math.random() * 1000).setScale(2, RoundingMode.CEILING);
+        return BigDecimal.valueOf(toReturn).setScale(2, RoundingMode.CEILING);
     }
 
     public BigDecimal berechneEnergieAufwandVerarbeitung(Materialverwendung materialverwendungDomain) {
