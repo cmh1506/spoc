@@ -32,9 +32,9 @@ public class Spoc {
         return BigDecimal.valueOf(toReturn).setScale(2, RoundingMode.CEILING);
     }
 
-    public BigDecimal berechneMaterialEnergie(Materialverwendung materialverwendungDomain, SpocUtil spuk) {
+    public BigDecimal berechneMaterialEnergieEq(Materialverwendung materialverwendungDomain, SpocUtil spuk) {
         double co2ProdP = materialverwendungDomain.getMenge() * spuk.getVirginanteil() * materialverwendungDomain.getMaterial().getProzessenergie();
-        double co2RecyP = (materialverwendungDomain.getMenge() * spuk.getVermehrung() * materialverwendungDomain.getMaterial().getEnergieRecycling()) / (1 + spuk.getVermehrung()) ;//hier falscher Wert drin getCo2Recycling(). Durch getEnergieRecycling ersetzen.
+        double co2RecyP = (materialverwendungDomain.getMenge() * spuk.getVermehrung() * materialverwendungDomain.getMaterial().getEnergieRecycling()) / (1 + spuk.getVermehrung());
         double toReturn = co2RecyP + co2ProdP;
 
         return BigDecimal.valueOf(toReturn).setScale(2, RoundingMode.CEILING);
@@ -43,7 +43,7 @@ public class Spoc {
     public BigDecimal berechneEnergieAufwandVerarbeitung(Materialverwendung materialverwendungDomain) {
         List<NutzenergieCO2Equivalent> ewerte = nutzenergieCO2EquivalentService.findALL();
         double fakCO2Strom = ewerte.stream().filter(x -> x.getEnergietraeger().equals("CO2 Stromnetz")).findFirst().get().getCo2ProKJ();
-        double fakCO2Waerme = ewerte.stream().filter(x -> x.getEnergietraeger().equals("CO2 Gaswärme")).findFirst().get().getCo2ProKJ();
+        double fakCO2Waerme = ewerte.stream().filter(x -> x.getEnergietraeger().equals("CO2 Gaswaerme")).findFirst().get().getCo2ProKJ();
         double toReturn = materialverwendungDomain.getMenge() *
                 (materialverwendungDomain.getVerarbeitung().getStrom() * fakCO2Strom +
                 materialverwendungDomain.getVerarbeitung().getWaerme() * fakCO2Waerme);
@@ -51,6 +51,7 @@ public class Spoc {
     }
 
     public BigDecimal berechneVerbrennungENutzCo2Eq(Materialverwendung materialverwendungDomain, SpocUtil spuk) {
+        //hier null wenn Deponierung (Spalte einfügen in Energierückgewinnung.)
         double toReturn =
             materialverwendungDomain.getMenge() * materialverwendungDomain.getMaterial().getCo2Verbrennung() * spuk.getVirginanteil();
         return BigDecimal.valueOf(toReturn).setScale(2, RoundingMode.CEILING);
@@ -68,7 +69,7 @@ public class Spoc {
         double stromgutschrift = energieAusVerbrennung * materialverwendungDomain.getEnergierueckgewinnung().getRecoveryRate() * materialverwendungDomain.getEnergierueckgewinnung().getStromanteil() / 100;
         double waermegutschrift = energieAusVerbrennung * materialverwendungDomain.getEnergierueckgewinnung().getRecoveryRate() * materialverwendungDomain.getEnergierueckgewinnung().getThermischerAnteil() / 100;
         double co2gutschriftstrom = stromgutschrift * ewerte.stream().filter(x -> x.getEnergietraeger().equals("CO2 Stromnetz")).findFirst().get().getCo2ProKJ();
-        double co2gutschriftwaerme = waermegutschrift * ewerte.stream().filter(x -> x.getEnergietraeger().equals("CO2 Gaswärme")).findFirst().get().getCo2ProKJ();
+        double co2gutschriftwaerme = waermegutschrift * ewerte.stream().filter(x -> x.getEnergietraeger().equals("CO2 Gaswaerme")).findFirst().get().getCo2ProKJ();
         return BigDecimal.valueOf(co2gutschriftstrom + co2gutschriftwaerme).setScale(2, RoundingMode.CEILING);
     }
 
@@ -89,7 +90,7 @@ public class Spoc {
         SpocUtil spuk = new SpocUtil(materialverwendungDomain.getRecyclingVerfahren(), materialverwendungDomain.getRecyclingQuote());
         materialverwendungDTO.setFossileMasse(this.berechneFossileMasse(materialverwendungDomain, spuk));
         materialverwendungDTO.setMaterialCO2Eq(this.berechneMaterialCO2Eq(materialverwendungDomain, spuk));
-        materialverwendungDTO.setMaterialEnergie(this.berechneMaterialEnergie(materialverwendungDomain, spuk));
+        materialverwendungDTO.setMaterialEnergie(this.berechneMaterialEnergieEq(materialverwendungDomain, spuk));
         materialverwendungDTO.setEnergieAufwandVerarbeitung(this.berechneEnergieAufwandVerarbeitung(materialverwendungDomain));
         materialverwendungDTO.setVerbrennungENutzCo2Eq(this.berechneVerbrennungENutzCo2Eq(materialverwendungDomain, spuk));
         materialverwendungDTO.setVerbrennungENutzEnergie(this.berechneVerbrennungENutzEnergie(materialverwendungDomain, spuk));
@@ -116,7 +117,7 @@ class SpocUtil {
     }
 
     public SpocUtil(Recyclingverfahren recyclingVerfahren, double recyclingQuote) {
-        this.virginanteil = berechneVirginAnteil(recyclingVerfahren.getName(), recyclingQuote);
+        this.virginanteil = berechneVirginAnteil(recyclingVerfahren.getMethode(), recyclingQuote);
     }
 
     private double berechneVirginAnteil(String recyclingVerfahren, double recyclingQuote) {

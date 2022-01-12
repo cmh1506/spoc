@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+  db:
+    image: 'postgres:13.1-alpine'
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=spoc
+    volumes:
+      - spoc-data:/var/lib/postgresql/data
+  spoc-backend:
+    image: 'cmh1506/spoc:latest'
+    build:
+      context: src/main/docker
+    container_name: spoc-backend
+    ports:
+      - "8080:8080"
+    links:
+      - "db"
+    depends_on:
+      - spoc
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/spoc
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  spoc-frontend:
+    image: 'cmh1506/spoc_frontend:latest'
+    container_name: spoc-frontend
+    links:
+      - "spoc-backend"
+    depends_on:
+      - "spoc-backend"
+    ports:
+      - "80:80"
+volumes:
+  spoc-data:
+    driver: azure_file
+    driver_opts:
+      share_name: spoc-pg-db

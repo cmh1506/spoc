@@ -18,24 +18,15 @@ public class RecyclingverfahrenService {
         this.repo = repo;
     }
 
-    public Recyclingverfahren addRecyclingverfahren(Recyclingverfahren recyclingverfahren){
-        return repo.save(recyclingverfahren);
-    }
-
     public List<de.heinrich.spoc.dto.Recyclingverfahren> findAllRecyclingverfahrens(){
         return repo.findAllRecyclingverfahren();
     }
 
-    public Recyclingverfahren updateRecyclingverfahren(Recyclingverfahren recyclingverfahren){
-        return repo.save(recyclingverfahren);
-    }
+
 
     public Recyclingverfahren findRecyclingverfahrenById(Long id){
         return repo.findRecyclingverfahrenById(id).orElseThrow(() -> new EntityNotFoundException("Recyclingverfahren with id " + id + " was not found!"));
     }
 
-    public void deleteRecyclingverfahren(Long id){
-        repo.deleteRecyclingverfahrenById(id);
-    }
 
 }

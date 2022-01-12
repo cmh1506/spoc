@@ -74,7 +74,7 @@ public class MaterialverwendungService {
         toReturn.setMaterialId(domain.getMaterial().getId());
         toReturn.setVerarbeitung(domain.getVerarbeitung().getName());
         toReturn.setVerarbeitungId(domain.getVerarbeitung().getId());
-        toReturn.setRecyclingverfahren(domain.getRecyclingVerfahren().getName());
+        toReturn.setRecyclingverfahren(domain.getRecyclingVerfahren().getMethode());
         toReturn.setRecyclingQuote(domain.getRecyclingQuote());
         toReturn.setRecyclingverfahrenId(domain.getRecyclingVerfahren().getId());
         toReturn.setVerpackungId(domain.getVerpackung().getId());

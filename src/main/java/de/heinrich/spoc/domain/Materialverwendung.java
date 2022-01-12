@@ -1,5 +1,7 @@
 package de.heinrich.spoc.domain;
 
+import static javax.persistence.EnumType.STRING;
+
 import javax.persistence.*;
 
 @Entity
@@ -33,8 +35,7 @@ public class Materialverwendung {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "verarbeitung_id", referencedColumnName = "id")
     private Verarbeitung verarbeitung;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "recyclingverfahren_id", referencedColumnName = "id")
+    @Enumerated(STRING)
     private Recyclingverfahren recyclingVerfahren;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "energierueckgewinnung_id", referencedColumnName = "id")

@@ -31,21 +31,5 @@ public class RecyclingverfahrenController {
         return new ResponseEntity<>(recyclingverfahren, HttpStatus.OK);
     }
 
-    @PostMapping("/addRecyclingverfahren")
-    public ResponseEntity<Recyclingverfahren> addRecyclingverfahren(@RequestBody Recyclingverfahren recyclingverfahren){
-        Recyclingverfahren newRecyclingverfahren = service.addRecyclingverfahren(recyclingverfahren);
-        return new ResponseEntity<>(newRecyclingverfahren, HttpStatus.CREATED);
-    }
 
-    @PostMapping("/updateRecyclingverfahren")
-    public ResponseEntity<Recyclingverfahren> updateRecyclingverfahren(@RequestBody Recyclingverfahren recyclingverfahren){
-        Recyclingverfahren updateRecyclingverfahren = service.updateRecyclingverfahren(recyclingverfahren);
-        return new ResponseEntity<>(updateRecyclingverfahren, HttpStatus.OK);
-    }
-
-    @GetMapping("/delete/{id}")
-    public ResponseEntity<?> deleteRecyclingverfahren(@PathVariable("id") Long id){
-        service.deleteRecyclingverfahren(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 }
