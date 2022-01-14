@@ -2,14 +2,20 @@ version: '2'
 
 services:
   db:
-    image: 'postgres:13.1-alpine'
+    image: mysql:latest
+    restart: always
     container_name: db
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=spoc
+      MYSQL_DATABASE: 'spoc'
+      MYSQL_SCHEMA: 'spoc'
+      MYSQL_USER: 'spoc'
+      MYSQL_PASSWORD: 'spoc'
+    ports:
+        - '3306:3306'
+    expose:
+      - '3306'
     volumes:
-      - spoc-data:/var/lib/postgresql/data
+      - todo-mysql-data:/var/lib/mysql
   spoc-backend:
     image: 'cmh1506/spoc:latest'
     build:
@@ -20,12 +26,12 @@ services:
     links:
       - "db"
     depends_on:
-      - spoc
+      - db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/spoc
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=postgres
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      MYSQL_HOST: mysql
+      MYSQL_USER: spoc
+      MYSQL_PASSWORD: spoc
+      MYSQL_DB: spoc
   spoc-frontend:
     image: 'cmh1506/spoc_frontend:latest'
     container_name: spoc-frontend
@@ -36,7 +42,5 @@ services:
     ports:
       - "80:80"
 volumes:
-  spoc-data:
-    driver: azure_file
-    driver_opts:
-      share_name: spoc-pg-db
+  todo-mysql-data:
+

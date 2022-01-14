@@ -6,15 +6,7 @@ import javax.persistence.*;
 @Table(name = "transportmittel", schema = "spoc")
 public class Transportmittel {
     @Id
-    @SequenceGenerator(
-            name = "transportmittel_sequence",
-            sequenceName = "transportmittel_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "transportmittel_sequence"
-    )
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String name;
     private double co2;

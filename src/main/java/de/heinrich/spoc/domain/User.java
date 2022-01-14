@@ -13,15 +13,7 @@ import static javax.persistence.EnumType.STRING;
 @Table(name = "user", schema = "spoc")
 public class User {
     @Id
-    @SequenceGenerator(
-            name = "user_sequence",
-            sequenceName = "user_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "user_sequence"
-    )
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
     private  String username;
     private  String password;

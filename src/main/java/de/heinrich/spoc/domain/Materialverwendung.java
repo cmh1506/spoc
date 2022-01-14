@@ -8,15 +8,7 @@ import javax.persistence.*;
 @Table(name = "materialverwendung", schema = "spoc")
 public class Materialverwendung {
     @Id
-    @SequenceGenerator(
-            name = "material_verwendung_sequence",
-            sequenceName = "material_verwendung_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "material_verwendung_sequence"
-    )
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
     public Verpackung getVerpackung() {

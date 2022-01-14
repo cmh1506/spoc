@@ -6,15 +6,7 @@ import java.math.BigDecimal;
 @Table(name = "energierueckgewinnung", schema = "spoc")
 public class Energierueckgewinnung {
     @Id
-    @SequenceGenerator(
-            name = "energierueckgewinnung_sequence",
-            sequenceName = "energierueckgewinnung_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "energierueckgewinnung_sequence"
-    )
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String name;
     private double recoveryRate;

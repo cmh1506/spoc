@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost")
+@CrossOrigin(origins = "http://localhost:80")
 public class SpocLoginController {
     private final UserService userService;
     @Autowired
@@ -21,7 +21,6 @@ public class SpocLoginController {
     }
 
     @GetMapping("/spoclogin")
-    @CrossOrigin(origins = "http://localhost")
     public Optional<Long> login(){
         Object principal = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
         if(!(principal instanceof ApplicationUser)){

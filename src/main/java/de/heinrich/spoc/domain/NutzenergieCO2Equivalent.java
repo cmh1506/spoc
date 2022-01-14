@@ -7,15 +7,7 @@ import java.math.BigDecimal;
 @Table(name = "nutzenergieCO2Equivalent", schema = "spoc")
 public class NutzenergieCO2Equivalent {
     @Id
-    @SequenceGenerator(
-            name = "nutzenergieCO2Equivalent_sequence",
-            sequenceName = "nutzenergieCO2Equivalent_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "nutzenergieCO2Equivalent_sequence"
-    )
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String energietraeger;
     private double co2ProKWh;

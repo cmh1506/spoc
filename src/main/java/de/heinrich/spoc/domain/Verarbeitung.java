@@ -7,15 +7,7 @@ import java.math.BigDecimal;
 @Table(name = "verarbeitung", schema = "spoc")
 public class Verarbeitung {
     @Id
-    @SequenceGenerator(
-            name = "verarbeitung_sequence",
-            sequenceName = "verarbeitung_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "verarbeitung_sequence"
-    )
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String name;
     private double strom;

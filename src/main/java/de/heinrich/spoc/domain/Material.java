@@ -8,15 +8,7 @@ import java.math.BigDecimal;
 @Table(name = "material", schema = "spoc")
 public class Material implements Serializable {
     @Id
-    @SequenceGenerator(
-            name = "material_sequence",
-            sequenceName = "material_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "material_sequence"
-    )
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String a_name;
     private double fossiles;

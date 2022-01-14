@@ -10,15 +10,7 @@ public class Verpackung {
     }
 
     @Id
-    @SequenceGenerator(
-            name = "verpackung_sequence",
-            sequenceName = "verpackung_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "verpackung_sequence"
-    )
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
