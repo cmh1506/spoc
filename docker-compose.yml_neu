@@ -1,26 +1,30 @@
-version: "3.7"
-
+version: '3.3'
 services:
   db:
     image: mysql:5.7
     restart: always
-    container_name: db
     environment:
       MYSQL_DATABASE: 'spoc'
-      MYSQL_SCHEMA: 'spoc'
+      # So you don't have to use root, but you can if you like
       MYSQL_USER: 'spoc'
+      # You can use whatever password you like
       MYSQL_PASSWORD: 'spoc'
-      MYSQL_ROOT_PASSWORD: 'spoc'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'root'
     ports:
-        - '3306:3306'
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
     expose:
+      # Opens port 3306 on the container
       - '3306'
+      # Where our data will be persisted
     volumes:
-      - todo-mysql-data:/var/lib/mysql
+      - my-db:/var/lib/mysql
   spoc-backend:
-    image: cmh1506/spoc
+    image: 'cmh1506/spoc:latest'
+    build:
+      context: src/main/docker
     container_name: spoc-backend
-    hostname: localhost
     ports:
       - "8080:8080"
     links:
@@ -28,10 +32,9 @@ services:
     depends_on:
       - db
     environment:
-      MYSQL_HOST: mysql
+      MYSQLDB_DATABASE: spoc
       MYSQL_USER: spoc
       MYSQL_PASSWORD: spoc
-      MYSQL_DB: spoc
   spoc-frontend:
     image: 'cmh1506/spoc_frontend:latest'
     container_name: spoc-frontend
@@ -41,9 +44,6 @@ services:
       - "spoc-backend"
     ports:
       - "80:80"
+# Names our volume
 volumes:
-  todo-mysql-data:
-    driver: azure_file
-    driver_opts:
-      share_name: spocshare
-      storage_account_name: spocdatastore
+  my-db:

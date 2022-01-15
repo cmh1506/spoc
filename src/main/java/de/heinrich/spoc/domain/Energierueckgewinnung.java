@@ -13,6 +13,13 @@ public class Energierueckgewinnung {
     private double stromanteil;
     private double thermischerAnteil;
 
+    public Energierueckgewinnung(String name, double recoveryRate, double stromanteil, double thermischerAnteil) {
+        this.name = name;
+        this.recoveryRate = recoveryRate;
+        this.stromanteil = stromanteil;
+        this.thermischerAnteil = thermischerAnteil;
+    }
+
     public Long getId() {
         return id;
     }
