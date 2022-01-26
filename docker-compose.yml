@@ -18,9 +18,9 @@ services:
     volumes:
       - todo-mysql-data:/var/lib/mysql
   spoc-backend:
-    image: cmh1506/spoc
+    image: cmh1506/spoc:latest
     container_name: spoc-backend
-    hostname: localhost
+    hostname: spoc_host
     ports:
       - "8080:8080"
     links:
@@ -32,15 +32,6 @@ services:
       MYSQL_USER: spoc
       MYSQL_PASSWORD: spoc
       MYSQL_DB: spoc
-  spoc-frontend:
-    image: 'cmh1506/spoc_frontend:latest'
-    container_name: spoc-frontend
-    links:
-      - "spoc-backend"
-    depends_on:
-      - "spoc-backend"
-    ports:
-      - "80:80"
 volumes:
   todo-mysql-data:
     driver: azure_file

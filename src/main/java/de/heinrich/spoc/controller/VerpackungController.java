@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/verpackung")
-@CrossOrigin(origins = "http://localhost")
 public class VerpackungController {
     private final VerpackungService service;
     private final UserService userService;

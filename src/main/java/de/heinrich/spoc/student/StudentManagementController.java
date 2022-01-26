@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("management/api/v1/students")
 public class StudentManagementController {
     private static final List<Student> STUDENTS = Arrays.asList(
