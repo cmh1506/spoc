@@ -46,4 +46,10 @@ public class Transportmittel {
 
     public Transportmittel() {
     }
+
+    public Transportmittel(String name, double co2, double energie) {
+        this.name = name;
+        this.co2 = co2;
+        this.energie = energie;
+    }
 }

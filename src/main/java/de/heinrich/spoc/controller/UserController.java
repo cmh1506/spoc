@@ -4,12 +4,15 @@ import de.heinrich.spoc.domain.User;
 import de.heinrich.spoc.repository.UserRepository;
 import de.heinrich.spoc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -20,23 +23,13 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public List<User> getUsers() {
-        return (List<User>) userService.findAll();
+    public List<de.heinrich.spoc.dto.User> getUsers() {
+        return (List<de.heinrich.spoc.dto.User>) userService.findAll();
     }
 
-
-
-    /*@PostMapping("/addUser")
-    void addUser(@RequestParam(required = false) String username,
-                 @RequestParam(required = false) String password,
-                 @RequestParam(required = false) String email) {
-        User user = new User(username, password, email);
-
-        userRepository.save(user);
-    }*/
-
     @PostMapping("/addUser")
-    void addUser(@RequestBody User user) {
-        userService.save(user);
+    public ResponseEntity<de.heinrich.spoc.dto.User> addUser(@RequestBody de.heinrich.spoc.dto.User user) {
+        de.heinrich.spoc.dto.User toReturn = userService.transformEntity(userService.addUser(user));
+        return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
     }
 }

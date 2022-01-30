@@ -6,6 +6,15 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "nutzenergieCO2Equivalent", schema = "spoc")
 public class NutzenergieCO2Equivalent {
+    public NutzenergieCO2Equivalent() {
+    }
+
+    public NutzenergieCO2Equivalent(String energietraeger, double co2ProKWh, double co2ProKJ) {
+        this.energietraeger = energietraeger;
+        this.co2ProKWh = co2ProKWh;
+        this.co2ProKJ = co2ProKJ;
+    }
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;

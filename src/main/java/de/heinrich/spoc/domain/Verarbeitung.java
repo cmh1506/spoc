@@ -39,11 +39,6 @@ public class Verarbeitung {
 
     public Verarbeitung() {
     }
-
-    public Verarbeitung(String name) {
-        this.name = name;
-    }
-
     public Long getId() {
         return id;
     }
@@ -51,4 +46,11 @@ public class Verarbeitung {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Verarbeitung(String name, double strom, double waerme) {
+        this.name = name;
+        this.strom = strom;
+        this.waerme = waerme;
+    }
+
 }

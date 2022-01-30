@@ -23,6 +23,7 @@ public class Material implements Serializable {
     private double co2Recycling;
     private double energieRecycling;
 
+
     public Material(String a_name, double fossiles, double prozessenergie, double productionCO2, double bioco2prod, double bioFuelCO2,
                     double dichte, double co2Verbrennung, double bioCO2Verbrennung, double heizenergie, double co2Recycling,
                     double energieRecycling) {

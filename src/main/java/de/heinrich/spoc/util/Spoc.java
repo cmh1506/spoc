@@ -43,7 +43,7 @@ public class Spoc {
     public BigDecimal berechneEnergieAufwandVerarbeitung(Materialverwendung materialverwendungDomain) {
         List<NutzenergieCO2Equivalent> ewerte = nutzenergieCO2EquivalentService.findALL();
         double fakCO2Strom = ewerte.stream().filter(x -> x.getEnergietraeger().equals("CO2 Stromnetz")).findFirst().get().getCo2ProKJ();
-        double fakCO2Waerme = ewerte.stream().filter(x -> x.getEnergietraeger().equals("CO2 Gaswaerme")).findFirst().get().getCo2ProKJ();
+        double fakCO2Waerme = ewerte.stream().filter(x -> x.getEnergietraeger().equals("CO2 Gaswärme")).findFirst().get().getCo2ProKJ();
         double toReturn = materialverwendungDomain.getMenge() *
                 (materialverwendungDomain.getVerarbeitung().getStrom() * fakCO2Strom +
                 materialverwendungDomain.getVerarbeitung().getWaerme() * fakCO2Waerme);
@@ -69,7 +69,7 @@ public class Spoc {
         double stromgutschrift = energieAusVerbrennung * materialverwendungDomain.getEnergierueckgewinnung().getRecoveryRate() * materialverwendungDomain.getEnergierueckgewinnung().getStromanteil() / 100;
         double waermegutschrift = energieAusVerbrennung * materialverwendungDomain.getEnergierueckgewinnung().getRecoveryRate() * materialverwendungDomain.getEnergierueckgewinnung().getThermischerAnteil() / 100;
         double co2gutschriftstrom = stromgutschrift * ewerte.stream().filter(x -> x.getEnergietraeger().equals("CO2 Stromnetz")).findFirst().get().getCo2ProKJ();
-        double co2gutschriftwaerme = waermegutschrift * ewerte.stream().filter(x -> x.getEnergietraeger().equals("CO2 Gaswaerme")).findFirst().get().getCo2ProKJ();
+        double co2gutschriftwaerme = waermegutschrift * ewerte.stream().filter(x -> x.getEnergietraeger().equals("CO2 Gaswärme")).findFirst().get().getCo2ProKJ();
         return BigDecimal.valueOf(co2gutschriftstrom + co2gutschriftwaerme).setScale(2, RoundingMode.CEILING);
     }
 
@@ -125,6 +125,7 @@ class SpocUtil {
         if ("Closed Loop".equals(recyclingVerfahren)){
             this.vermehrung = (1 / (1 - (recyclingQuote / 100))) - 1;
         } else {
+            //if(())
             this.vermehrung = recyclingQuote / 100;
         }
 
