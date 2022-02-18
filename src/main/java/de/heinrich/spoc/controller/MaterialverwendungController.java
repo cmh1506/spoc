@@ -45,12 +45,12 @@ public class MaterialverwendungController {
     public ResponseEntity<de.heinrich.spoc.dto.Materialverwendung> addMaterialverwendung(@RequestBody de.heinrich.spoc.dto.Materialverwendung materialverwendung) {
         Materialverwendung materialDomain = service.addMaterialverwendung(materialverwendung);
         de.heinrich.spoc.dto.Materialverwendung toReturn = service.transformEntity(materialDomain);
-        berechneCO2Werte(materialDomain, toReturn);
+        berechneCO2Werte(materialDomain, toReturn);//unschön!!!
         return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
     }
 
     private void berechneCO2Werte(Materialverwendung materialverwendungDomain, de.heinrich.spoc.dto.Materialverwendung materialverwendungDTO) {
-        spoc.berechneCO2Werte(materialverwendungDomain, materialverwendungDTO);
+        spoc.berechneCO2Werte(materialverwendungDomain, materialverwendungDTO);//unschön!!! methode überflüssig!
 
     }
 

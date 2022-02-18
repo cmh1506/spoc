@@ -3,6 +3,9 @@ package de.heinrich.spoc.domain;
 import javax.persistence.*;
 import java.util.List;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Table(name = "verpackung", schema = "spoc")
 public class Verpackung {
@@ -12,7 +15,8 @@ public class Verpackung {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     private User user;
     @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "verpackung", orphanRemoval = true)

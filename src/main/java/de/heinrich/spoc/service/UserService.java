@@ -62,4 +62,10 @@ public class UserService {
         toReturn.setRole(user.getRole().name());
         return toReturn;
     }
+
+    public void deleteUser(Long id) {
+        User user = userRepository.findUserById(id);
+        user.setEnabled(false);
+        userRepository.save(user);
+    }
 }

@@ -44,10 +44,12 @@ public class MaterialController {
         return new ResponseEntity<>(updateMaterial, HttpStatus.OK);
     }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteMaterial(@PathVariable("id") Long id){
         service.deleteMaterial(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
 
 }

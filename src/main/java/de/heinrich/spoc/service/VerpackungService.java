@@ -1,5 +1,6 @@
 package de.heinrich.spoc.service;
 
+import de.heinrich.spoc.domain.Materialverwendung;
 import de.heinrich.spoc.domain.User;
 import de.heinrich.spoc.domain.Verpackung;
 import de.heinrich.spoc.repository.VerpackungRepository;
@@ -56,6 +57,7 @@ public class VerpackungService {
     }
 
     public void deleteVerpackung(Long id){
+
         repo.deleteVerpackungById(id);
     }
 

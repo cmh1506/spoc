@@ -1,5 +1,7 @@
 package de.heinrich.spoc.domain;
 
+import static javax.persistence.EnumType.STRING;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -22,11 +24,71 @@ public class Material implements Serializable {
     private double heizenergie;
     private double co2Recycling;
     private double energieRecycling;
+    private boolean recyclat_2te_mal;
+    private boolean recyclierbar;
+    @Enumerated(STRING)
+    private Recyclingverfahren recycling_modus;
+    private double r_rate_herstellung;
 
+    private double co2_deponie;
 
-    public Material(String a_name, double fossiles, double prozessenergie, double productionCO2, double bioco2prod, double bioFuelCO2,
-                    double dichte, double co2Verbrennung, double bioCO2Verbrennung, double heizenergie, double co2Recycling,
-                    double energieRecycling) {
+    public double getCo2_deponie() {
+        return co2_deponie;
+    }
+
+    public void setCo2_deponie(double co2_deponie) {
+        this.co2_deponie = co2_deponie;
+    }
+
+    public boolean isRecyclat_2te_mal() {
+        return recyclat_2te_mal;
+    }
+
+    public void setRecyclat_2te_mal(boolean recyclat_2te_mal) {
+        this.recyclat_2te_mal = recyclat_2te_mal;
+    }
+
+    public boolean isRecyclierbar() {
+        return recyclierbar;
+    }
+
+    public void setRecyclierbar(boolean recyclierbar) {
+        this.recyclierbar = recyclierbar;
+    }
+
+    public Recyclingverfahren getRecycling_modus() {
+        return recycling_modus;
+    }
+
+    public void setRecycling_modus(Recyclingverfahren recycling_modus) {
+        this.recycling_modus = recycling_modus;
+    }
+
+    public double getR_rate_herstellung() {
+        return r_rate_herstellung;
+    }
+
+    public void setR_rate_herstellung(double r_rate_herstellung) {
+        this.r_rate_herstellung = r_rate_herstellung;
+    }
+
+    public Material(String a_name,
+                    double bioCO2Verbrennung,
+                    double bioFuelCO2,
+                    double bioco2prod,
+                    double co2Recycling,
+                    double co2Verbrennung,
+                    double dichte,
+                    double energieRecycling,
+                    double fossiles,
+                    double heizenergie,
+                    double productionCO2,
+                    double prozessenergie,
+                    double r_rate_herstellung,
+                    boolean recyclat_2te_mal,
+                    boolean recyclierbar,
+                    Recyclingverfahren recycling_modus,
+                    double co2_deponie) {
         this.a_name = a_name;
         this.fossiles = fossiles;
         this.prozessenergie = prozessenergie;
@@ -39,6 +101,11 @@ public class Material implements Serializable {
         this.heizenergie = heizenergie;
         this.co2Recycling = co2Recycling;
         this.energieRecycling = energieRecycling;
+        this.recyclat_2te_mal = recyclat_2te_mal;
+        this.recyclierbar = recyclierbar;
+        this.recycling_modus = recycling_modus;
+        this.r_rate_herstellung = r_rate_herstellung;
+        this.co2_deponie = co2_deponie;
     }
 
     public double getEnergieRecycling() {

@@ -32,4 +32,10 @@ public class UserController {
         de.heinrich.spoc.dto.User toReturn = userService.transformEntity(userService.addUser(user));
         return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable("id") Long id){
+        userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

@@ -40,18 +40,27 @@ public class Spoc {
         return BigDecimal.valueOf(toReturn).setScale(2, RoundingMode.CEILING);
     }
 
-    public BigDecimal berechneEnergieAufwandVerarbeitung(Materialverwendung materialverwendungDomain) {
+    public BigDecimal berechneCO2AufwandVerarbeitung(Materialverwendung materialverwendungDomain) {
         List<NutzenergieCO2Equivalent> ewerte = nutzenergieCO2EquivalentService.findALL();
         double fakCO2Strom = ewerte.stream().filter(x -> x.getEnergietraeger().equals("CO2 Stromnetz")).findFirst().get().getCo2ProKJ();
         double fakCO2Waerme = ewerte.stream().filter(x -> x.getEnergietraeger().equals("CO2 Gaswärme")).findFirst().get().getCo2ProKJ();
         double toReturn = materialverwendungDomain.getMenge() *
-                (materialverwendungDomain.getVerarbeitung().getStrom() * fakCO2Strom +
+            (materialverwendungDomain.getVerarbeitung().getStrom() * fakCO2Strom +
                 materialverwendungDomain.getVerarbeitung().getWaerme() * fakCO2Waerme);
         return BigDecimal.valueOf(toReturn).setScale(2, RoundingMode.CEILING);
     }
 
-    public BigDecimal berechneVerbrennungENutzCo2Eq(Materialverwendung materialverwendungDomain, SpocUtil spuk) {
-        //hier null wenn Deponierung (Spalte einfügen in Energierückgewinnung.)
+    public BigDecimal berechneEnergieAufwandVerarbeitung(Materialverwendung materialverwendungDomain) {
+        double toReturn = materialverwendungDomain.getMenge() *
+                (materialverwendungDomain.getVerarbeitung().getStrom() +
+                materialverwendungDomain.getVerarbeitung().getWaerme());
+        return BigDecimal.valueOf(toReturn).setScale(2, RoundingMode.CEILING);
+    }
+
+    public BigDecimal berechneVerbrennungCo2Eq(Materialverwendung materialverwendungDomain, SpocUtil spuk) {
+        if(materialverwendungDomain.getEnergierueckgewinnung().getName().equals("Deponierung")){
+            return BigDecimal.valueOf((-1) * materialverwendungDomain.getMenge() * materialverwendungDomain.getMaterial().getCo2_deponie() * spuk.getVirginanteil()).setScale(2, RoundingMode.CEILING);
+        }
         double toReturn =
             materialverwendungDomain.getMenge() * materialverwendungDomain.getMaterial().getCo2Verbrennung() * spuk.getVirginanteil();
         return BigDecimal.valueOf(toReturn).setScale(2, RoundingMode.CEILING);
@@ -86,19 +95,28 @@ public class Spoc {
         return  BigDecimal.valueOf(materialverwendungDomain.getMenge() * materialverwendungDomain.getTransportStrecke() * materialverwendungDomain.getTransportmittel().getEnergie()).setScale(2, RoundingMode.CEILING);
     }
 
+    private BigDecimal berechneIndirectco2Biofuel(Materialverwendung materialverwendungDomain, SpocUtil spuk) {
+        return BigDecimal.valueOf(materialverwendungDomain.getMenge() * spuk.getVirginanteil() * materialverwendungDomain.getMaterial().getBioFuelCO2()).setScale(2, RoundingMode.CEILING);
+    }
+
     public void berechneCO2Werte(Materialverwendung materialverwendungDomain, de.heinrich.spoc.dto.Materialverwendung materialverwendungDTO) {
-        SpocUtil spuk = new SpocUtil(materialverwendungDomain.getRecyclingVerfahren(), materialverwendungDomain.getRecyclingQuote());
+        SpocUtil spuk = new SpocUtil(materialverwendungDomain.getRecyclingVerfahren(), materialverwendungDomain.getRecyclingQuote(), materialverwendungDomain.getMaterial().isRecyclat_2te_mal(), materialverwendungDomain.getMaterial().getR_rate_herstellung(), materialverwendungDomain.getMaterial().isRecyclierbar());
         materialverwendungDTO.setFossileMasse(this.berechneFossileMasse(materialverwendungDomain, spuk));
         materialverwendungDTO.setMaterialCO2Eq(this.berechneMaterialCO2Eq(materialverwendungDomain, spuk));
         materialverwendungDTO.setMaterialEnergie(this.berechneMaterialEnergieEq(materialverwendungDomain, spuk));
         materialverwendungDTO.setEnergieAufwandVerarbeitung(this.berechneEnergieAufwandVerarbeitung(materialverwendungDomain));
-        materialverwendungDTO.setVerbrennungENutzCo2Eq(this.berechneVerbrennungENutzCo2Eq(materialverwendungDomain, spuk));
+        materialverwendungDTO.setCo2AufwandVerarbeitung(this.berechneCO2AufwandVerarbeitung(materialverwendungDomain));
+        materialverwendungDTO.setVerbrennungCo2Eq(this.berechneVerbrennungCo2Eq(materialverwendungDomain, spuk));
         materialverwendungDTO.setVerbrennungENutzEnergie(this.berechneVerbrennungENutzEnergie(materialverwendungDomain, spuk));
         materialverwendungDTO.setGutschriftVerbrennungCo2Eq(this.berechneGutschriftVerbrennungCo2Eq(materialverwendungDomain, spuk));
-        materialverwendungDTO.setGutschriftBioCo2Eq(this.berechneGutschriftBioCo2Eq(materialverwendungDomain, spuk));
+        materialverwendungDTO.setIndirectco2Biofuel(this.berechneIndirectco2Biofuel(materialverwendungDomain, spuk));
         materialverwendungDTO.setTransportCo2Eq(this.berechneTransportCo2Eq(materialverwendungDomain));
         materialverwendungDTO.setTransportEnergie(this.berechneTransportEnergie(materialverwendungDomain));
+
     }
+
+
+
 
     public BigDecimal berechneBioFuelCo2(){
         return null;
@@ -116,19 +134,29 @@ class SpocUtil {
         return virginanteil;
     }
 
-    public SpocUtil(Recyclingverfahren recyclingVerfahren, double recyclingQuote) {
-        this.virginanteil = berechneVirginAnteil(recyclingVerfahren.getMethode(), recyclingQuote);
+    public SpocUtil(Recyclingverfahren recyclingVerfahren, double recyclingQuote, boolean recyclat_2te_mal, double r_rate_herstellung, boolean recyclierbar) {
+        this.virginanteil = berechneVirginAnteil(recyclingVerfahren.getMethode(), recyclingQuote, recyclat_2te_mal, r_rate_herstellung, recyclierbar);
     }
 
-    private double berechneVirginAnteil(String recyclingVerfahren, double recyclingQuote) {
-        double vermehrung;
-        if ("Closed Loop".equals(recyclingVerfahren)){
-            this.vermehrung = (1 / (1 - (recyclingQuote / 100))) - 1;
-        } else {
-            //if(())
-            this.vermehrung = recyclingQuote / 100;
-        }
 
+    private double berechneVirginAnteil(String recyclingVerfahren, double recyclingQuote, boolean recyclat_2te_mal, double r_rate_herstellung, boolean recyclierbar) {
+        if(recyclat_2te_mal){
+            if(r_rate_herstellung < recyclingQuote){
+                this.vermehrung = recyclingQuote / 100 + recyclingQuote / 100 * r_rate_herstellung / 100;
+            } else {
+                this.vermehrung = r_rate_herstellung / 100 + recyclingQuote / 100 * r_rate_herstellung / 100;
+            }
+        } else {
+            if(recyclierbar){
+                if ("Closed Loop".equals(recyclingVerfahren)){
+                    this.vermehrung = (1 / (1 - (recyclingQuote / 100))) - 1;
+                } else {
+                    this.vermehrung = recyclingQuote / 100;
+                }
+            } else {
+                this.vermehrung = 0;
+            }
+        }
         return 1 / (1 + this.vermehrung);
     }
 }

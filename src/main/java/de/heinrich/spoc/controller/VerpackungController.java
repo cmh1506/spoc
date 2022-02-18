@@ -32,9 +32,10 @@ public class VerpackungController {
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<Verpackung> getVerpackungById(@PathVariable("id") Long id){
+    public ResponseEntity<de.heinrich.spoc.dto.Verpackung> getVerpackungById(@PathVariable("id") Long id){
         Verpackung verpackung = service.findVerpackungById(id);
-        return new ResponseEntity<>(verpackung, HttpStatus.OK);
+        de.heinrich.spoc.dto.Verpackung toReturn = service.transformDomain(verpackung);
+        return new ResponseEntity<>(toReturn, HttpStatus.OK);
     }
 
     @PostMapping("/addVerpackung")
@@ -50,11 +51,6 @@ public class VerpackungController {
         return new ResponseEntity<>(updateVerpackung, HttpStatus.OK);
     }
 
-    @GetMapping("/delete/{id}")
-    public ResponseEntity<?> deleteVerpackung(@PathVariable("id") Long id){
-        service.deleteVerpackung(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
     @GetMapping("/findAllForUserId/{id}")
     public ResponseEntity<List<de.heinrich.spoc.dto.Verpackung>> findAllForUserId(@PathVariable("id") Long id){
@@ -62,6 +58,12 @@ public class VerpackungController {
         List<de.heinrich.spoc.dto.Verpackung> toReturn = new ArrayList<>();
         fromDB.stream().forEach(verpackung -> {toReturn.add(service.transformDomain(verpackung));});
         return new ResponseEntity<>(toReturn, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteVerpackung(@PathVariable("id") Long id){
+        service.deleteVerpackung(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

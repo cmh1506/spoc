@@ -16,7 +16,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query("select new de.heinrich.spoc.dto.User(u.id, u.username, u.password, u.role, u.email) from User u order by u.username")
+    @Query("select new de.heinrich.spoc.dto.User(u.id, u.username, u.password, u.role, u.email) from User u where u.isEnabled = true order by u.username")
     List<de.heinrich.spoc.dto.User> findAllUsers();
 
     Optional<User> findUserByUsername(String name);

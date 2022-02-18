@@ -1,5 +1,6 @@
 package de.heinrich.spoc.dto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class Verpackung {
@@ -8,6 +9,16 @@ public class Verpackung {
     private Long userId;
     private String user;
     private String beschreibung;
+
+    public Verpackung(String name, Long userId, String user, String beschreibung, BigDecimal materialCO2Aufwand,
+                      BigDecimal cradleToGate, BigDecimal cradleToGrave, BigDecimal cradleToGraveCO2Gutschrift,
+                      BigDecimal cradleToGraveCO2GutschriftBioFuel) {
+        this.name = name;
+        this.userId = userId;
+        this.user = user;
+        this.beschreibung = beschreibung;
+
+    }
 
     public Verpackung() {
     }
@@ -52,14 +63,7 @@ public class Verpackung {
         this.user = user;
     }
 
-    public Verpackung(de.heinrich.spoc.domain.Verpackung entity){
-        this.id = entity.getId();
-        this.name = entity.getName();
-        this.userId = entity.getUser().getId();
-        this.user = entity.getUser().getUsername();
-        this.beschreibung = entity.getBeschreibung();
 
-    }
 
 
 }

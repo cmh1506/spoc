@@ -29,8 +29,7 @@ public class User {
         this.verpackung = verpackung;
     }
 
-    @OneToMany(cascade = CascadeType.ALL,
-            mappedBy = "user", orphanRemoval = true)
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Verpackung> verpackung;
     private  boolean isAccountNonExpired;
     private  boolean isAccountNonLocked;

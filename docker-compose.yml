@@ -37,4 +37,4 @@ volumes:
     driver: azure_file
     driver_opts:
       share_name: spocshare
-      storage_account_name: spocdatastore
+      storage_account_name: spocdatastore2

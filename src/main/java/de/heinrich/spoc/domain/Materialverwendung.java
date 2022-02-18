@@ -4,6 +4,9 @@ import static javax.persistence.EnumType.STRING;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Table(name = "materialverwendung", schema = "spoc")
 public class Materialverwendung {
@@ -20,20 +23,25 @@ public class Materialverwendung {
     }
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Verpackung verpackung;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     @JoinColumn(name = "material_id", referencedColumnName = "id")
     private Material material;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     @JoinColumn(name = "verarbeitung_id", referencedColumnName = "id")
     private Verarbeitung verarbeitung;
     @Enumerated(STRING)
     private Recyclingverfahren recyclingVerfahren;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "energierueckgewinnung_id", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Energierueckgewinnung energierueckgewinnung;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "transportmittel_id", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Transportmittel transportmittel;
     private double recyclingQuote;
 

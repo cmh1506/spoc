@@ -20,8 +20,8 @@ public class UserConfig {
     @Bean
     CommandLineRunner initUsers(UserRepository userRepository) {
         return args -> {
-            User user = new User("Burth", passwordEncoder.encode("12345"), ApplicationUserRole.ADMIN, "dirk.burth@hm.edu",true, true, true, true);
-            userRepository.save(user);
+            userRepository.save(new User("Burth", passwordEncoder.encode("12345"), ApplicationUserRole.ADMIN, "dirk.burth@hm.edu",true, true, true, true));
+            userRepository.save(new User("benutzer", passwordEncoder.encode("passwort"), ApplicationUserRole.ADMIN, "dirk.burth@hm.edu",true, true, true, true));
         };
     }
 }

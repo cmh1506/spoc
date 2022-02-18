@@ -26,12 +26,23 @@ public class Materialverwendung {
     private BigDecimal materialCO2Eq;
     private BigDecimal materialEnergie;
     private BigDecimal energieAufwandVerarbeitung;
-    private BigDecimal verbrennungENutzCo2Eq;
+    private BigDecimal co2AufwandVerarbeitung;
+    private BigDecimal verbrennungCo2Eq;
     private BigDecimal verbrennungENutzEnergie;
     private BigDecimal gutschriftVerbrennungCo2Eq;
-    private BigDecimal gutschriftBioCo2Eq;
+    private BigDecimal indirectco2Biofuel;
     private BigDecimal transportCo2Eq;
     private BigDecimal transportEnergie;
+
+
+    public BigDecimal getCo2AufwandVerarbeitung() {
+        return co2AufwandVerarbeitung;
+    }
+
+    public void setCo2AufwandVerarbeitung(BigDecimal co2AufwandVerarbeitung) {
+        this.co2AufwandVerarbeitung = co2AufwandVerarbeitung;
+    }
+
 
     public double getRecyclingQuote() {
         return recyclingQuote;
@@ -73,12 +84,12 @@ public class Materialverwendung {
         this.energieAufwandVerarbeitung = energieAufwandVerarbeitung;
     }
 
-    public BigDecimal getVerbrennungENutzCo2Eq() {
-        return verbrennungENutzCo2Eq;
+    public BigDecimal getVerbrennungCo2Eq() {
+        return verbrennungCo2Eq;
     }
 
-    public void setVerbrennungENutzCo2Eq(BigDecimal verbrennungENutzCo2Eq) {
-        this.verbrennungENutzCo2Eq = verbrennungENutzCo2Eq;
+    public void setVerbrennungCo2Eq(BigDecimal verbrennungCo2Eq) {
+        this.verbrennungCo2Eq = verbrennungCo2Eq;
     }
 
     public BigDecimal getVerbrennungENutzEnergie() {
@@ -97,12 +108,12 @@ public class Materialverwendung {
         this.gutschriftVerbrennungCo2Eq = gutschriftVerbrennungCo2Eq;
     }
 
-    public BigDecimal getGutschriftBioCo2Eq() {
-        return gutschriftBioCo2Eq;
+    public BigDecimal getIndirectco2Biofuel() {
+        return indirectco2Biofuel;
     }
 
-    public void setGutschriftBioCo2Eq(BigDecimal gutschriftBioCo2Eq) {
-        this.gutschriftBioCo2Eq = gutschriftBioCo2Eq;
+    public void setIndirectco2Biofuel(BigDecimal indirectco2Biofuel) {
+        this.indirectco2Biofuel = indirectco2Biofuel;
     }
 
     public BigDecimal getTransportCo2Eq() {
