@@ -1,5 +1,6 @@
 package de.heinrich.spoc.service;
 
+import de.heinrich.spoc.domain.Material;
 import de.heinrich.spoc.domain.Materialverwendung;
 import de.heinrich.spoc.domain.Verpackung;
 import de.heinrich.spoc.repository.MaterialverwendungRepository;
@@ -32,13 +33,20 @@ public class MaterialverwendungService {
 
     public Materialverwendung addMaterialverwendung(de.heinrich.spoc.dto.Materialverwendung materialverwendung){
         de.heinrich.spoc.domain.Materialverwendung toSave = new Materialverwendung();
-        toSave.setMaterial(materialService.findMaterialById(materialverwendung.getMaterialId()));
+        Material material = materialService.findMaterialById(materialverwendung.getMaterialId());
+        toSave.setMaterial(material);
         toSave.setVerarbeitung(verarbeitungService.findVerarbeitungById(materialverwendung.getVerarbeitungId()));
         toSave.setRecyclingVerfahren(recyclingverfahrenService.findRecyclingverfahrenById(materialverwendung.getRecyclingverfahrenId()));
         toSave.setVerpackung(verpackungService.findVerpackungById(materialverwendung.getVerpackungId()));
         toSave.setEnergierueckgewinnung(energierueckgewinnungService.findEnergierueckgewinnungById(materialverwendung.getEnergierueckgewinnungId()));
         toSave.setTransportmittel(transportmittelService.findTransportmittelById(materialverwendung.getTransportmittelId()));
-        toSave.setMenge(materialverwendung.getMenge());
+        double menge;
+        if(materialverwendung.getMenge() == 0){
+            menge = materialverwendung.getDicke() * materialverwendung.getFlaeche() * material.getDichte() * 0.0001D;
+        } else {
+            menge = materialverwendung.getMenge();
+        }
+        toSave.setMenge(menge);
         toSave.setFlaeche(materialverwendung.getFlaeche());
         toSave.setDicke(materialverwendung.getDicke());
         toSave.setTransportStrecke(materialverwendung.getTransportstrecke());
