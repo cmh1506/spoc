@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import de.heinrich.spoc.auth.ApplicationUserService;
 
@@ -31,18 +32,23 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .cors()
-                .and()
-                .authorizeRequests()
-                .antMatchers("/", "index", "/spoclogin", "/materialverwendung/allMaterialverwendungs", "/material/allMaterials", "/verarbeitung/allVerarbeitungs", "/recyclingverfahren/allRecyclingverfahrens", "/energierueckgewinnung/allEnergierueckgewinnungs", "/transportmittel/allTransportmittels", "/user/users", "/material/delete").permitAll()
-                .antMatchers(HttpMethod.GET, "/verpackung/**", "/materialverwendung/**", "/spoclogin").hasAuthority(ApplicationUserPermission.STAMMDATEN.getPermission())
-                .antMatchers(HttpMethod.POST, "/verpackung/**", "/materialverwendung/**").hasAuthority(ApplicationUserPermission.STAMMDATEN.getPermission())
-                .antMatchers(HttpMethod.DELETE, "/verpackung/**", "/materialverwendung/**", "/material/**").hasAuthority(ApplicationUserPermission.STAMMDATEN.getPermission())
-                .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic();
+            .csrf()
+            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
+            .cors()
+            .and()
+            .authorizeRequests()
+            .antMatchers("/", "/static/**", "/*.js", "/*.json", "/*.ico", "/*.sccs","/*.woff2", "/*.css", "/index*", "/login"/*, "/spoclogin", "/materialverwendung/allMaterialverwendungs", "/material/allMaterials", "/verarbeitung/allVerarbeitungs", "/recyclingverfahren/allRecyclingverfahrens", "/energierueckgewinnung/allEnergierueckgewinnungs", "/transportmittel/allTransportmittels", "/user/users", "/material/delete"*/).permitAll()
+            .antMatchers(HttpMethod.GET, "/verpackung/**", "/materialverwendung/**", "/spoclogin").hasAuthority(ApplicationUserPermission.STAMMDATEN.getPermission())
+            .antMatchers(HttpMethod.POST, "/verpackung/**", "/materialverwendung/**").hasAuthority(ApplicationUserPermission.STAMMDATEN.getPermission())
+            .antMatchers(HttpMethod.DELETE, "/verpackung/**", "/materialverwendung/**", "/material/**").hasAuthority(ApplicationUserPermission.STAMMDATEN.getPermission())
+            .anyRequest()
+            .authenticated().and()
+            /*.formLogin().loginPage("/login").permitAll()
+            .passwordParameter("password")
+            .usernameParameter("username")
+            .and()
+            .logout().permitAll();*/
+            .httpBasic();
     }
 
     @Override
