@@ -18,7 +18,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "localhost")
+@CrossOrigin(origins = "*")
 public class SpocLoginController {
     private final UserService userService;
     @Autowired
