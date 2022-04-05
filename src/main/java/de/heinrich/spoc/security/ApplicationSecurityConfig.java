@@ -32,23 +32,18 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .csrf()
-            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
+            .csrf().disable()
             .cors()
             .and()
             .authorizeRequests()
-            .antMatchers("/", "/static/**", "/*.js", "/*.json", "/*.ico", "/*.sccs","/*.woff2", "/*.css", "/index*", "/login"/*, "/spoclogin", "/materialverwendung/allMaterialverwendungs", "/material/allMaterials", "/verarbeitung/allVerarbeitungs", "/recyclingverfahren/allRecyclingverfahrens", "/energierueckgewinnung/allEnergierueckgewinnungs", "/transportmittel/allTransportmittels", "/user/users", "/material/delete"*/).permitAll()
-            .antMatchers(HttpMethod.GET, "/verpackung/**", "/materialverwendung/**", "/spoclogin").hasAuthority(ApplicationUserPermission.STAMMDATEN.getPermission())
-            .antMatchers(HttpMethod.POST, "/verpackung/**", "/materialverwendung/**").hasAuthority(ApplicationUserPermission.STAMMDATEN.getPermission())
-            .antMatchers(HttpMethod.DELETE, "/verpackung/**", "/materialverwendung/**", "/material/**").hasAuthority(ApplicationUserPermission.STAMMDATEN.getPermission())
+            .antMatchers("/*.js", "/*.json", "/*.ico", "/*.sccs","/*.woff2", "/*.css", "/static", "/", "index", "/spoclogin", "/user/addUser"/*, "/materialverwendung/allMaterialverwendungs", "/material/allMaterials", "/verarbeitung/allVerarbeitungs", "/recyclingverfahren/allRecyclingverfahrens", "/energierueckgewinnung/allEnergierueckgewinnungs", "/transportmittel/allTransportmittels", "/user/users", "/material/delete"*/).permitAll()
+            .antMatchers(HttpMethod.GET, "/verpackung/**", "/materialverwendung/**", "/spoclogin").hasAuthority(ApplicationUserPermission.KUNDE.getPermission())
+            .antMatchers(HttpMethod.POST, "/verpackung/**", "/materialverwendung/**").hasAuthority(ApplicationUserPermission.KUNDE.getPermission())
+            .antMatchers(HttpMethod.DELETE, "/verpackung/**", "/materialverwendung/**", "/material/**").hasAuthority(ApplicationUserPermission.KUNDE.getPermission())
             .anyRequest()
-            .authenticated().and()
-            /*.formLogin().loginPage("/login").permitAll()
-            .passwordParameter("password")
-            .usernameParameter("username")
+            .authenticated()
             .and()
-            .logout().permitAll();*/
-            .httpBasic();
+            .httpBasic(); //http://localhost:80/
     }
 
     @Override
@@ -65,3 +60,15 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 }
+/*
+http
+            .csrf()
+            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+            .and()
+            .cors()
+            .and()
+            .authorizeRequests()
+            .antMatchers("/**", "/static/**", "/*.js", "/*.json", "/*.ico", "/*.sccs","/*.woff2", "/*.css", "/index.html", "/", "/login").permitAll()
+            .anyRequest().authenticated()
+            .and().httpBasic();
+ */

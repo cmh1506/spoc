@@ -15,10 +15,12 @@ public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
+    @Column(unique=true)
     private  String username;
     private  String password;
     @Enumerated(STRING)
     private  ApplicationUserRole role;
+    @Column(unique=true)
     private String email;
 
     public List<Verpackung> getVerpackung() {

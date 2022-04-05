@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    container_name: db
+    environment:
+      MYSQL_DATABASE: 'spoc'
+      MYSQL_SCHEMA: 'spoc'
+      MYSQL_USER: 'spoc'
+      MYSQL_PASSWORD: 'spoc'
+      MYSQL_ROOT_PASSWORD: 'spoc'
+    ports:
+        - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - todo-mysql-data:/var/lib/mysql
+  spoc-backend:
+    image: 'cmh1506/spoc:latest'
+    container_name: spoc-backend
+    ports:
+      - "8080:8080"
+    links:
+      - "db"
+    depends_on:
+      - db
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: spoc
+      MYSQL_PASSWORD: spoc
+      MYSQL_DB: spoc
+volumes:
+  todo-mysql-data:
+

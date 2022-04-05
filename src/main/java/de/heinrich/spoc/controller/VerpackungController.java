@@ -54,7 +54,7 @@ public class VerpackungController {
 
     @GetMapping("/findAllForUserId/{id}")
     public ResponseEntity<List<de.heinrich.spoc.dto.Verpackung>> findAllForUserId(@PathVariable("id") Long id){
-        List<Verpackung> fromDB = service.findAllForUser(userService.findUserById(id));
+        List<Verpackung> fromDB = service.findAllForUser(userService.findUserById(id).orElseThrow());
         List<de.heinrich.spoc.dto.Verpackung> toReturn = new ArrayList<>();
         fromDB.stream().forEach(verpackung -> {toReturn.add(service.transformDomain(verpackung));});
         return new ResponseEntity<>(toReturn, HttpStatus.OK);

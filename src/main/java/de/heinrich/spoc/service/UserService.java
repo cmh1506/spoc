@@ -1,6 +1,7 @@
 package de.heinrich.spoc.service;
 
 import de.heinrich.spoc.domain.User;
+import de.heinrich.spoc.domain.Verpackung;
 import de.heinrich.spoc.repository.UserRepository;
 import de.heinrich.spoc.security.ApplicationUserRole;
 
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.SQLNonTransientException;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +26,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User findUserById(Long id) {
+    public Optional<User> findUserById(Long id) {
         return userRepository.findUserById(id);
     }
 
@@ -32,7 +35,7 @@ public class UserService {
     }
     public List<User> getUsers() {return (List<User>) userRepository.findAll();}
 
-    public User addUser(de.heinrich.spoc.dto.User user) {
+    public User addUser(de.heinrich.spoc.dto.User user) throws SQLIntegrityConstraintViolationException {
         de.heinrich.spoc.domain.User toSave = new User();
         toSave.setUsername(user.getUsername());
         toSave.setEmail(user.getEmail());
@@ -49,7 +52,7 @@ public class UserService {
         return userRepository.findAllUsers();
     }
 
-    public User findUserByEmail(String userEmail) {
+    public Optional<User> findUserByEmail(String userEmail) {
         return userRepository.findUserByEmail(userEmail);
     }
 
@@ -64,8 +67,12 @@ public class UserService {
     }
 
     public void deleteUser(Long id) {
-        User user = userRepository.findUserById(id);
+        User user = userRepository.findUserById(id).orElseThrow();
         user.setEnabled(false);
         userRepository.save(user);
+    }
+
+    public User updateUser(User user){
+        return userRepository.save(user);
     }
 }

@@ -39,7 +39,7 @@ public class VerpackungService {
             toReturn = repo.findVerpackungById(dto.getId()).get();
         }
         toReturn.setName(dto.getName());
-        toReturn.setUser(userService.findUserById(dto.getUserId()));
+        toReturn.setUser(userService.findUserById(dto.getUserId()).orElseThrow());
         toReturn.setBeschreibung(dto.getBeschreibung());
         return toReturn;
     }

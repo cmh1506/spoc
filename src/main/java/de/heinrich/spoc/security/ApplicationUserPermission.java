@@ -1,7 +1,8 @@
 package de.heinrich.spoc.security;
 
 public enum ApplicationUserPermission {
-    STAMMDATEN("stammdaten:write");
+    STAMMDATEN("stammdaten:write"),
+    KUNDE("kunde:write");
 
 
     private final String permission;
