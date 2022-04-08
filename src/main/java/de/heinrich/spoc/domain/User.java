@@ -22,21 +22,13 @@ public class User {
     private  ApplicationUserRole role;
     @Column(unique=true)
     private String email;
-
-    public List<Verpackung> getVerpackung() {
-        return verpackung;
-    }
-
-    public void setVerpackung(List<Verpackung> verpackung) {
-        this.verpackung = verpackung;
-    }
-
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Verpackung> verpackung;
-    private  boolean isAccountNonExpired;
-    private  boolean isAccountNonLocked;
-    private  boolean isCredentialsNonExpired;
-    private  boolean isEnabled;
+    private boolean isAccountNonExpired;
+    private boolean isAccountNonLocked;
+    private boolean isCredentialsNonExpired;
+    private boolean isEnabled;
+
 
     public User(String username, String password, ApplicationUserRole role, String email, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled) {
 
@@ -63,6 +55,13 @@ public class User {
         this.isAccountNonLocked = true;
         this.isCredentialsNonExpired = true;
         this.isEnabled = true;
+    }
+    public List<Verpackung> getVerpackung() {
+        return verpackung;
+    }
+
+    public void setVerpackung(List<Verpackung> verpackung) {
+        this.verpackung = verpackung;
     }
 
     public ApplicationUserRole getRole() {

@@ -26,8 +26,8 @@ public class MaterialController {
         return new ResponseEntity<>(materials, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<Material> getMaterialById(@PathVariable("id") Long id){
+    @GetMapping("/findMaterialById/{id}")
+    public ResponseEntity<Material> findMaterialById(@PathVariable("id") Long id){
         Material material = service.findMaterialById(id);
         return new ResponseEntity<>(material, HttpStatus.OK);
     }

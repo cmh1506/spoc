@@ -24,7 +24,7 @@ public class UserConfig {
     CommandLineRunner initUsers(UserRepository userRepository) {
         return args -> {
             userRepository.save(new User("Burth", passwordEncoder.encode("12345"), ApplicationUserRole.ADMIN, "dirk.burth@hm.edu",true, true, true, true));
-            userRepository.save(new User("Claus", passwordEncoder.encode("12345"), ApplicationUserRole.KUNDE, "claus-heinrich@gmx.net",true, true, true, true));
+            userRepository.save(new User("Claus", passwordEncoder.encode("12345"), ApplicationUserRole.ADMIN, "claus-heinrich@gmx.net",true, true, true, true));
             //userRepository.save(new User("benutzer", passwordEncoder.encode("passwort"), ApplicationUserRole.ADMIN, "dirk.burth@hm.edu",true, true, true, true));
             //IntStream.range(1, 100).forEach(n -> { userRepository.save(new User("benutzer" + n, passwordEncoder.encode("passwort" + n), ApplicationUserRole.ADMIN, "user@user.com",true, true, true, true)); });
         };

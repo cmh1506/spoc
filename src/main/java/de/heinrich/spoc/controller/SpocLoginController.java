@@ -18,7 +18,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "localhost") //Seltsamerweise nicht * für aws. Checken!
 public class SpocLoginController {
     private final UserService userService;
     @Autowired

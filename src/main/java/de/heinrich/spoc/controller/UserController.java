@@ -1,5 +1,6 @@
 package de.heinrich.spoc.controller;
 
+import de.heinrich.spoc.domain.Material;
 import de.heinrich.spoc.domain.User;
 import de.heinrich.spoc.dto.PWChangeType;
 import de.heinrich.spoc.repository.UserRepository;
@@ -40,6 +41,15 @@ public class UserController {
         return (List<de.heinrich.spoc.dto.User>) userService.findAll();
     }
 
+    @PutMapping("/updateUser")
+    public ResponseEntity<?> updateUser(@RequestBody User inbound){
+        if(inbound.getId() == null || inbound.getId() == 0){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        userService.updateUser(inbound);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PostMapping("/addUser")
     public ResponseEntity<de.heinrich.spoc.dto.User> addUser(@RequestBody de.heinrich.spoc.dto.User user) {
         //ToDo: move to service? Check if email already exists.
@@ -75,5 +85,11 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable("id") Long id){
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/findUserById/{id}")
+    public ResponseEntity<User> findUserById(@PathVariable("id") Long id){
+        User user = userService.findUserById(id).orElseThrow();
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

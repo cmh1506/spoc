@@ -72,7 +72,16 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User updateUser(User user){
-        return userRepository.save(user);
+    public User updateUser(User inbound){
+        User existing = userRepository.findUserById(inbound.getId()).orElseThrow();
+        existing.setUsername(inbound.getUsername());
+        existing.setPassword(inbound.getPassword());
+        existing.setRole(inbound.getRole());
+        existing.setEmail(inbound.getEmail());
+        existing.setAccountNonExpired(inbound.isAccountNonExpired());
+        existing.setAccountNonLocked(inbound.isAccountNonLocked());
+        existing.setCredentialsNonExpired(inbound.isCredentialsNonExpired());
+        existing.setEnabled(inbound.isEnabled());
+        return userRepository.save(existing);
     }
 }

@@ -40,6 +40,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.GET, "/verpackung/**", "/materialverwendung/**", "/spoclogin").hasAuthority(ApplicationUserPermission.KUNDE.getPermission())
             .antMatchers(HttpMethod.POST, "/verpackung/**", "/materialverwendung/**").hasAuthority(ApplicationUserPermission.KUNDE.getPermission())
             .antMatchers(HttpMethod.DELETE, "/verpackung/**", "/materialverwendung/**", "/material/**").hasAuthority(ApplicationUserPermission.KUNDE.getPermission())
+            .antMatchers(HttpMethod.PUT, "/user/updateUser").hasAuthority(ApplicationUserPermission.STAMMDATEN.getPermission())
             .anyRequest()
             .authenticated()
             .and()
