@@ -69,11 +69,12 @@ public class UserService {
     public void deleteUser(Long id) {
         User user = userRepository.findUserById(id).orElseThrow();
         user.setEnabled(false);
+        user.setEmail(user.getEmail() + "deprecated");
         userRepository.save(user);
     }
 
     public User updateUser(User inbound){
-        User existing = userRepository.findUserById(inbound.getId()).orElseThrow();
+        User existing = userRepository.findUserById(inbound.getId()).get();
         existing.setUsername(inbound.getUsername());
         existing.setPassword(inbound.getPassword());
         existing.setRole(inbound.getRole());

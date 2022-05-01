@@ -29,7 +29,6 @@ public class Material implements Serializable {
     @Enumerated(STRING)
     private Recyclingverfahren recycling_modus;
     private double r_rate_herstellung;
-
     private double co2_deponie;
 
     public double getCo2_deponie() {
@@ -72,18 +71,18 @@ public class Material implements Serializable {
         this.r_rate_herstellung = r_rate_herstellung;
     }
 
-    public Material(String a_name,
-                    double bioCO2Verbrennung,
-                    double bioFuelCO2,
-                    double bioco2prod,
-                    double co2Recycling,
-                    double co2Verbrennung,
-                    double dichte,
-                    double energieRecycling,
-                    double fossiles,
-                    double heizenergie,
-                    double productionCO2,
-                    double prozessenergie,
+    public Material(String a_name,//v
+                    double bioCO2Verbrennung,//v
+                    double bioFuelCO2,//v
+                    double bioco2prod,//v
+                    double co2Recycling,//v
+                    double co2Verbrennung,//v
+                    double dichte,//v
+                    double energieRecycling,//v
+                    double fossiles,//v
+                    double heizenergie,//v
+                    double productionCO2,//v
+                    double prozessenergie,//v
                     double r_rate_herstellung,
                     boolean recyclat_2te_mal,
                     boolean recyclierbar,

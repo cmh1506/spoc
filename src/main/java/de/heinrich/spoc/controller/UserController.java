@@ -59,7 +59,7 @@ public class UserController {
         if(userService.findUserByName(user.getUsername()).isPresent()){
             return new ResponseEntity(HttpStatus.valueOf(423));
         }
-        RandomStringGenerator pwdGenerator = new RandomStringGenerator.Builder().withinRange(33, 45)
+        RandomStringGenerator pwdGenerator = new RandomStringGenerator.Builder().withinRange('a', 'z')
             .build();
         user.setPassword(pwdGenerator.generate(8));
         user.setRole(ApplicationUserRole.KUNDE.name());

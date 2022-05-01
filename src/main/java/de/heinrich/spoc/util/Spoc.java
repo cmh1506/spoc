@@ -66,6 +66,20 @@ public class Spoc {
         return BigDecimal.valueOf(toReturn).setScale(2, RoundingMode.CEILING);
     }
 
+    private BigDecimal berechneVerbrennungBioCo2Eq(Materialverwendung materialverwendungDomain, SpocUtil spuk) {
+        double toReturn =
+                materialverwendungDomain.getMenge() * materialverwendungDomain.getMaterial().getBioCO2Verbrennung() * spuk.getVirginanteil();
+        return BigDecimal.valueOf(toReturn).setScale(2, RoundingMode.CEILING);
+    }
+
+    private BigDecimal berechneHerstellungBioCo2Eq(Materialverwendung materialverwendungDomain, SpocUtil spuk) {
+        double toReturn =
+                materialverwendungDomain.getMenge() * materialverwendungDomain.getMaterial().getBioco2prod() * spuk.getVirginanteil();
+        return BigDecimal.valueOf(toReturn).setScale(2, RoundingMode.CEILING);
+    }
+
+
+
     public BigDecimal berechneVerbrennungENutzEnergie(Materialverwendung materialverwendungDomain, SpocUtil spuk) {
         double energieAusVerbrennung = materialverwendungDomain.getMenge() * materialverwendungDomain.getMaterial().getHeizenergie() * materialverwendungDomain.getEnergierueckgewinnung().getRecoveryRate() / 100
             * spuk.getVirginanteil();
@@ -112,7 +126,8 @@ public class Spoc {
         materialverwendungDTO.setIndirectco2Biofuel(this.berechneIndirectco2Biofuel(materialverwendungDomain, spuk));
         materialverwendungDTO.setTransportCo2Eq(this.berechneTransportCo2Eq(materialverwendungDomain));
         materialverwendungDTO.setTransportEnergie(this.berechneTransportEnergie(materialverwendungDomain));
-
+        materialverwendungDTO.setVerbrennungBioCo2Eq(this.berechneVerbrennungBioCo2Eq(materialverwendungDomain, spuk));
+        materialverwendungDTO.setHerstellungBioCo2Eq(this.berechneHerstellungBioCo2Eq(materialverwendungDomain, spuk));
     }
 
 

@@ -31,7 +31,7 @@ public class MaterialConfig {
             materialRepository.save(new Material("1880 PUR", 0.0, 0.0, 0.0, 0.41, 2.0, 1.0, 1.6, 1.8, 33.033, 3.0, 56.056, 0.0, false, false, Recyclingverfahren.OPEN_LOOP, 0.0));
             materialRepository.save(new Material("1910 SAN", 0.0, 0.0, 0.0, 0.36, 3.31, 1.09, 1.6, 2.0, 44.044, 2.96, 52.88, 0.0, false, false, Recyclingverfahren.OPEN_LOOP, 0.0));
             materialRepository.save(new Material("2100 alle Papiere Mittelwert", 0.51, 0.4, 0.0, 0.7, 0.0, 1, 10.0, 0.12, 14, 0.75, 16.4, 71.10711, false, true, Recyclingverfahren.CLOSED_LOOP, 0.0));
-            materialRepository.save(new Material("2200 Papier hf", 1.44, 1.02, 0.0, 0.7, 0.0, 1, 10.0, 0.12, 16.0, 0.74, 25.9, 71.10711, false, true, Recyclingverfahren.CLOSED_LOOP, 0.0));
+            materialRepository.save(new Material("2200 Papier holzfrei", 1.44, 1.02, 0.0, 0.7, 0.0, 1, 10.0, 0.12, 16.0, 0.74, 25.9, 71.10711, false, true, Recyclingverfahren.CLOSED_LOOP, 0.0));
             materialRepository.save(new Material("2300 Papier holzhaltig", 1.44, 0.53, 0.0, 0.7, 0.0, 1, 10.0, 0.12, 16.0, 0.95, 16.1, 71.10711, false, true, Recyclingverfahren.CLOSED_LOOP, 0.0));
             materialRepository.save(new Material("2400 R-Altpapier", 0.4, 0.32, 0.0, 0.7, 0.0, 1, 0.0, 0.12, 3.6, 0.74, 13.3, 71.10711, false, false, Recyclingverfahren.CLOSED_LOOP, 0.0));
             materialRepository.save(new Material("2500 Kraftliner", 1.44, 0.87, 0.0, 0.7, 0.0, 1, 10.0, 0.12, 16.0, 0.74, 23.4, 71.10711, false, true, Recyclingverfahren.CLOSED_LOOP, 0.0));
@@ -58,7 +58,6 @@ public class MaterialConfig {
             materialRepository.save(new Material("4350 R-Folien, Recyclat", 0.0, 0.0, 0.0, 0.394, 3.14, 0.925, 1.6, 1.8, 46.0, 1.87, 36.7, 30.003, true, true, Recyclingverfahren.OPEN_LOOP, 0.0));
             materialRepository.save(new Material("4370 R-BioPE, Bio-Polymer", 3.14, 2.77, 0.0, 0.368, 0.0, 0.925, 1.8, 0.4, 46.0, 1.0, 70.07, 30.003, true, true, Recyclingverfahren.OPEN_LOOP, 3.14));
             materialRepository.save(new Material("4610 bio PE, Bio-Polymer", 3.14, 2.77, 0.0, 0.368, 0.0, 0.925, 1.6, 0.4, 46.0, 1.0, 70.07, 0.0, false, true, Recyclingverfahren.OPEN_LOOP, 3.14));
-            materialRepository.save(new Material("4620 bio PE iluc, Bio-Polymer", 3.14, 2.77, 0.0, 0.368, 0.0, 0.925, 1.6, 0.4, 46.0, 2.33, 70.07, 0.0, false, true, Recyclingverfahren.OPEN_LOOP, 3.14));
             materialRepository.save(new Material("4650 PLA, Bio-Polymer", 0.0, 0.0, 0.0, 0.41, 0.0, 1.3, 1.6, 1195, 18.018, 1.0, 53.8, 0.0, false, false, Recyclingverfahren.OPEN_LOOP, 0.0));
             materialRepository.save(new Material("4700 bio-PET, Bio-Polymer", 0.46, 0.0, 0.0, 0.48, 1.834, 1.38, 1.6, 1.13, 24.024, 1.8, 51.051, 0.0, false, true, Recyclingverfahren.OPEN_LOOP, 0.46));
             materialRepository.save(new Material("4750 bio-PA, Bio-Polymer", 2.34, 0.0, 0.0, 0.41, 0.0, 1.15, 1.6, 1.44, 20.02, 3.38, 64.8, 0.0, false, true, Recyclingverfahren.OPEN_LOOP, 2.34));
@@ -93,6 +92,7 @@ public class MaterialConfig {
             materialRepository.save(new Material("9410 Gase: N2 flüssig", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.164, 1.8, 0.0, false, false, Recyclingverfahren.OPEN_LOOP, 0.0));
             materialRepository.save(new Material("9420 Gase: N2 gas", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.048, 0.44, 0.0, false, false, Recyclingverfahren.OPEN_LOOP, 0.0));
             materialRepository.save(new Material("9430 Gase: O2 flüssig", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.17, 1.5, 0.0, false, false, Recyclingverfahren.OPEN_LOOP, 0.0));
+            materialRepository.save(new Material("1915 Silikon(Releasematerial)", 0.0, 0.0, 0.0, 0.0, 1.19, 1.0, 0.0, 0.0, 32.0, 6.3, 95.0, 0.0, false, false, Recyclingverfahren.OPEN_LOOP, 0.0));
 
         };
     }

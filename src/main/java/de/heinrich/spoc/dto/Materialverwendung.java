@@ -33,7 +33,27 @@ public class Materialverwendung {
     private BigDecimal indirectco2Biofuel;
     private BigDecimal transportCo2Eq;
     private BigDecimal transportEnergie;
+    private BigDecimal verbrennungBioCo2Eq;
+    private BigDecimal herstellungBioCo2Eq;
 
+
+    public BigDecimal getHerstellungBioCo2Eq() {
+        return herstellungBioCo2Eq;
+    }
+
+    public void setHerstellungBioCo2Eq(BigDecimal herstellungBioCo2Eq) {
+        this.herstellungBioCo2Eq = herstellungBioCo2Eq;
+    }
+
+
+
+    public BigDecimal getVerbrennungBioCo2Eq() {
+        return verbrennungBioCo2Eq;
+    }
+
+    public void setVerbrennungBioCo2Eq(BigDecimal verbrennungBioCo2Eq) {
+        this.verbrennungBioCo2Eq = verbrennungBioCo2Eq;
+    }
 
     public BigDecimal getCo2AufwandVerarbeitung() {
         return co2AufwandVerarbeitung;
